@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Recipe Card</title>
+  <style>
+    :root {
+      --bg: #f9fafb;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --accent: #16a34a;
+      --border: #e5e7eb;
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+      overflow: clip;
+    }
+
+    .header {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .hero {
+      max-height: 360px;
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      object-fit: cover;
+      display: block;
+      background: #ddd;
+    }
+
+    .titlebar {
+      padding: 1rem 1.25rem 0.5rem;
+    }
+
+    h1 {
+      margin: 0 0 0.25rem;
+      font-size: clamp(1.25rem, 2vw + 1rem, 2rem);
+    }
+    .subtitle { color: var(--muted); font-size: 0.95rem; }
+
+    .toolbar {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 0.75rem 1.25rem 1rem;
+    }
+
+    .field {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.35rem 0.75rem;
+      background: #fff;
+    }
+    .field label {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .field input[type="number"] {
+      width: 6ch;
+      border: 0;
+      outline: none;
+      font-size: 1rem;
+      padding: 0.2rem;
+      background: transparent;
+    }
+
+    button {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 999px;
+      padding: 0.5rem 0.9rem;
+      cursor: pointer;
+    }
+    button.primary {
+      border-color: transparent;
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      padding: 0 1.25rem 1.25rem;
+    }
+
+    @media (min-width: 820px) {
+      .header { grid-template-columns: 1.2fr 1fr; align-items: end; }
+      .titlebar { padding: 1.5rem 1.5rem 0.5rem; }
+      .toolbar { padding: 0.5rem 1.5rem 1.25rem; }
+      .grid { grid-template-columns: 1fr 1fr; gap: 1.25rem; padding: 0 1.5rem 1.5rem; }
+      .hero { border-radius: 0 0 0 0; }
+    }
+
+    .panel {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      background: #fff;
+    }
+    .panel h2 {
+      margin: 0 0 0.75rem;
+      font-size: 1.1rem;
+    }
+
+    ul.ingredients { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.5rem; }
+    .ingredient {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.75rem;
+      align-items: baseline;
+      border-bottom: 1px dashed var(--border);
+      padding-bottom: 0.5rem;
+    }
+    .ingredient:last-child { border-bottom: 0; }
+    .qty { font-variant-numeric: tabular-nums; min-width: 7ch; }
+    .name { color: var(--text); }
+    .note { color: var(--muted); font-size: 0.9rem; }
+
+    ol.directions { padding-left: 1.25rem; margin: 0; display: grid; gap: 0.75rem; }
+
+    .footerbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.25rem 1.25rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* Nutrition table */
+    .nutrition { width: 100%; border-collapse: collapse; }
+    .nutrition th, .nutrition td { padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); text-align: left; }
+    .nutrition th { color: var(--muted); font-weight: 600; }
+    .nutrition tfoot td { font-weight: 600; }
+    .kcal { white-space: nowrap; }
+
+    /* Print-friendly */
+    @media print {
+      body { background: #fff; }
+      .container { margin: 0; }
+      .toolbar button { display: none; }
+      .footerbar { display: none; }
+      .card { box-shadow: none; border: 0; }
+    }
+    </article>
+  </main>
+</body>
+</html>

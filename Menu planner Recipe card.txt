@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Recipe Card</title>
+  <style>
+    :root {
+      --bg: #f9fafb;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --accent: #16a34a;
+      --border: #e5e7eb;
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+      overflow: clip;
+    }
+
+    .header {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .hero {
+      max-height: 360px;
+      aspect-ratio: 16 / 9;
+      width: 100%;
+      object-fit: cover;
+      display: block;
+      background: #ddd;
+    }
+
+    .titlebar {
+      padding: 1rem 1.25rem 0.5rem;
+    }
+
+    h1 {
+      margin: 0 0 0.25rem;
+      font-size: clamp(1.25rem, 2vw + 1rem, 2rem);
+    }
+    .subtitle { color: var(--muted); font-size: 0.95rem; }
+
+    .toolbar {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 0.75rem 1.25rem 1rem;
+    }
+
+    .field {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.35rem 0.75rem;
+      background: #fff;
+    }
+    .field label {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .field input[type="number"] {
+      width: 6ch;
+      border: 0;
+      outline: none;
+      font-size: 1rem;
+      padding: 0.2rem;
+      background: transparent;
+    }
+
+    button {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 999px;
+      padding: 0.5rem 0.9rem;
+      cursor: pointer;
+    }
+    button.primary {
+      border-color: transparent;
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      padding: 0 1.25rem 1.25rem;
+    }
+
+    @media (min-width: 820px) {
+      .header { grid-template-columns: 1.2fr 1fr; align-items: end; }
+      .titlebar { padding: 1.5rem 1.5rem 0.5rem; }
+      .toolbar { padding: 0.5rem 1.5rem 1.25rem; }
+      .grid { grid-template-columns: 1fr 1fr; gap: 1.25rem; padding: 0 1.5rem 1.5rem; }
+      .hero { border-radius: 0 0 0 0; }
+    }
+
+    .panel {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      background: #fff;
+    }
+    .panel h2 {
+      margin: 0 0 0.75rem;
+      font-size: 1.1rem;
+    }
+
+    ul.ingredients { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.5rem; }
+    .ingredient {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.75rem;
+      align-items: baseline;
+      border-bottom: 1px dashed var(--border);
+      padding-bottom: 0.5rem;
+    }
+    .ingredient:last-child { border-bottom: 0; }
+    .qty { font-variant-numeric: tabular-nums; min-width: 7ch; }
+    .name { color: var(--text); }
+    .note { color: var(--muted); font-size: 0.9rem; }
+
+    ol.directions { padding-left: 1.25rem; margin: 0; display: grid; gap: 0.75rem; }
+
+    .footerbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.25rem 1.25rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* Nutrition table */
+    .nutrition { width: 100%; border-collapse: collapse; }
+    .nutrition th, .nutrition td { padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); text-align: left; }
+    .nutrition th { color: var(--muted); font-weight: 600; }
+    .nutrition tfoot td { font-weight: 600; }
+    .kcal { white-space: nowrap; }
+
+    /* Print-friendly */
+    @media print {
+      body { background: #fff; }
+      .container { margin: 0; }
+      .toolbar button { display: none; }
+      .footerbar { display: none; }
+      .card { box-shadow: none; border: 0; }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <article class="card" itemscope itemtype="https://schema.org/Recipe">
+      <section class="header">
+        <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?q=80&w=1600&auto=format&fit=crop" alt="Finished dish" class="hero" itemprop="image" />
+        <div>
+          <div class="titlebar">
+            <h1 itemprop="name">Lemon Garlic Chicken</h1>
+            <p class="subtitle" itemprop="description">Bright, zesty chicken with roasted potatoes and herbs.</p>
+          </div>
+          <div class="toolbar">
+            <div class="field" title="How many servings this recipe makes">
+              <label for="servingsInput">Servings</label>
+              <input id="servingsInput" type="number" step="0.5" min="0.5" value="4" inputmode="decimal" aria-label="Servings" />
+            </div>
+            <div class="field" title="The baseline servings the ingredient amounts are written for">
+              <label for="baseServings">Base</label>
+              <input id="baseServings" type="number" step="0.5" min="0.5" value="4" inputmode="decimal" aria-label="Base servings" />
+            </div>
+            <button class="primary" id="scaleBtn" aria-label="Scale ingredients">Scale</button>
+            <button id="resetBtn" aria-label="Reset ingredients">Reset</button>
+            <button id="printBtn" aria-label="Print recipe">Print</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid">
+        <section class="panel" aria-labelledby="ingredientsTitle">
+          <h2 id="ingredientsTitle">Ingredients</h2>
+          <ul class="ingredients" id="ingredientsList">
+            <li class="ingredient" data-qty="1.5" data-unit="lb" data-name="chicken thighs">
+              <span class="qty"><span class="qty-out">1 1/2</span> lb</span>
+              <div class="name">bone-in, skin-on chicken thighs</div>
+            </li>
+            <li class="ingredient" data-qty="1.0" data-unit="lb" data-name="baby potatoes">
+              <span class="qty"><span class="qty-out">1</span> lb</span>
+              <div class="name">baby potatoes, halved</div>
+            </li>
+            <li class="ingredient" data-qty="3" data-unit="clove" data-name="garlic">
+              <span class="qty"><span class="qty-out">3</span> cloves</span>
+              <div class="name">garlic, minced</div>
+            </li>
+            <li class="ingredient" data-qty="2" data-unit="tbsp" data-name="olive oil">
+              <span class="qty"><span class="qty-out">2</span> tbsp</span>
+              <div class="name">olive oil</div>
+            </li>
+            <li class="ingredient" data-qty="1" data-unit="pc" data-name="lemon">
+              <span class="qty"><span class="qty-out">1</span></span>
+              <div class="name">lemon, zested & juiced</div>
+            </li>
+            <li class="ingredient" data-qty="1" data-unit="tsp" data-name="salt">
+              <span class="qty"><span class="qty-out">1</span> tsp</span>
+              <div class="name">kosher salt, plus more to taste</div>
+            </li>
+            <li class="ingredient" data-qty="0.5" data-unit="tsp" data-name="pepper">
+              <span class="qty"><span class="qty-out">1/2</span> tsp</span>
+              <div class="name">freshly ground black pepper</div>
+            </li>
+            <li class="ingredient" data-qty="1" data-unit="tbsp" data-name="parsley">
+              <span class="qty"><span class="qty-out">1</span> tbsp</span>
+              <div class="name">fresh parsley, chopped (for garnish)</div>
+            </li>
+          </ul>
+          <p class="note">Tip: Change “Servings” then press <strong>Scale</strong>. “Base” should match the serving count your original amounts are written for.</p>
+        </section>
+
+        <section class="panel" aria-labelledby="directionsTitle">
+          <h2 id="directionsTitle">Directions</h2>
+          <ol class="directions" itemprop="recipeInstructions">
+            <li>Preheat oven to 425°F (220°C). Pat chicken dry.</li>
+            <li>Toss potatoes with 1 tbsp oil, half the garlic, salt, and pepper on a sheet pan.</li>
+            <li>Whisk remaining oil with lemon zest and juice, remaining garlic, and a pinch of salt.</li>
+            <li>Nestle chicken onto the pan. Brush with lemon-garlic mixture.</li>
+            <li>Roast 30–35 minutes until chicken reads 165°F (74°C) and potatoes are tender.</li>
+            <li>Rest 5 minutes; sprinkle with parsley and serve.</li>
+          </ol>
+        </section>
+      </section>
+
+      <section class="panel" aria-labelledby="nutritionTitle" id="nutrition" data-cal="450" data-protein="35" data-carbs="28" data-fat="18">
+        <h2 id="nutritionTitle">Nutrition</h2>
+        <p class="note">Enter per-serving nutrition in the <code>data-</code> attributes on this section (defaults shown below). Totals update when you change servings.</p>
+        <table class="nutrition" role="table" aria-label="Nutrition information">
+          <thead>
+            <tr>
+              <th scope="col">&nbsp;</th>
+              <th scope="col">Calories</th>
+              <th scope="col">Protein (g)</th>
+              <th scope="col">Carbs (g)</th>
+              <th scope="col">Fat (g)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Per serving</th>
+              <td class="kcal" id="perCal">—</td>
+              <td id="perProtein">—</td>
+              <td id="perCarbs">—</td>
+              <td id="perFat">—</td>
+            </tr>
+            <tr>
+              <th scope="row">Total (all servings)</th>
+              <td class="kcal" id="totCal">—</td>
+              <td id="totProtein">—</td>
+              <td id="totCarbs">—</td>
+              <td id="totFat">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <footer class="footerbar">
+        <span>Prep: 10 min · Cook: 35 min · Total: 45 min</span>
+        <span>Easy · Gluten-Free</span>
+      </footer>
+
+      <script>
+        function toFraction(num) {
+          const fracMap = {0.125:'1/8',0.25:'1/4',0.3333:'1/3',0.375:'3/8',0.5:'1/2',0.625:'5/8',0.6666:'2/3',0.75:'3/4',0.875:'7/8'};
+          const rounded = Math.round((num + Number.EPSILON) * 8) / 8;
+          const whole = Math.trunc(rounded);
+          const frac = +(rounded - whole).toFixed(3);
+          const fracStr = Object.entries(fracMap).find(([k]) => Math.abs(frac - parseFloat(k)) < 0.02)?.[1] || (frac ? frac.toString() : '');
+          return whole && fracStr ? `${whole} ${fracStr}` : whole ? `${whole}` : fracStr || '0';
+        }
+
+        const ingredientsList = document.getElementById('ingredientsList');
+        const servingsInput = document.getElementById('servingsInput');
+        const baseInput = document.getElementById('baseServings');
+        const scaleBtn = document.getElementById('scaleBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const printBtn = document.getElementById('printBtn');
+
+        const original = [...ingredientsList.querySelectorAll('.ingredient')].map(li => ({
+          qty: parseFloat(li.dataset.qty),
+          unit: li.dataset.unit || '',
+          name: li.dataset.name || li.querySelector('.name')?.textContent?.trim() || '',
+        }));
+
+        function renderNutrition() {
+          const n = document.getElementById('nutrition');
+          if (!n) return;
+          const servings = parseFloat(servingsInput.value) || 0;
+          const per = {
+            calories: parseFloat(n.dataset.cal) || 0,
+            protein: parseFloat(n.dataset.protein) || 0,
+            carbs: parseFloat(n.dataset.carbs) || 0,
+            fat: parseFloat(n.dataset.fat) || 0,
+          };
+          const tot = {
+            calories: per.calories * servings,
+            protein: per.protein * servings,
+            carbs: per.carbs * servings,
+            fat: per.fat * servings,
+          };
+          document.getElementById('perCal').textContent = `${Math.round(per.calories)} kcal`;
+          document.getElementById('perProtein').textContent = per.protein.toFixed(1);
+          document.getElementById('perCarbs').textContent = per.carbs.toFixed(1);
+          document.getElementById('perFat').textContent = per.fat.toFixed(1);
+          document.getElementById('totCal').textContent = `${Math.round(tot.calories)} kcal`;
+          document.getElementById('totProtein').textContent = tot.protein.toFixed(1);
+          document.getElementById('totCarbs').textContent = tot.carbs.toFixed(1);
+          document.getElementById('totFat').textContent = tot.fat.toFixed(1);
+        }
+
+        function renderScaled() {
+          const target = parseFloat(servingsInput.value) || 0;
+          const base = parseFloat(baseInput.value) || 1;
+          const factor = base ? target / base : 1;
+          ingredientsList.querySelectorAll('.ingredient').forEach((li, i) => {
+            const baseQty = original[i].qty;
+            const unit = original[i].unit;
+            const scaled = baseQty * factor;
+            const qtyOut = li.querySelector('.qty-out');
+            qtyOut.textContent = toFraction(scaled);
+            const unitSpan = li.querySelector('.qty');
+            unitSpan.innerHTML = `<span class="qty-out">${qtyOut.textContent}</span> ${unit ? unit : ''}`.trim();
+          });
+          renderNutrition();
+        }
+
+        function resetQuantities() {
+          servingsInput.value = baseInput.value;
+          renderScaled();
+        }
+
+        scaleBtn.addEventListener('click', renderScaled);
+        resetBtn.addEventListener('click', resetQuantities);
+        printBtn.addEventListener('click', () => window.print());
+
+        [servingsInput, baseInput].forEach(inp => {
+          inp.addEventListener('change', renderScaled);
+          inp.addEventListener('keyup', e => { if (e.key === 'Enter') renderScaled(); });
+        });
+
+        renderScaled();
+      </script>
+    </article>
+  </main>
+</body>
+</html>
