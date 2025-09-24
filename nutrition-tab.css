@@ -1,117 +1,95 @@
-  </style>
-</head>
-<body>
-  <main class="container">
-    <article class="card" itemscope itemtype="https://schema.org/Recipe">
-      <section class="header">
-        <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?q=80&w=1600&auto=format&fit=crop" alt="Finished dish" class="hero" itemprop="image" />
-        <div>
-          <div class="titlebar">
-            <h1 itemprop="name">Lemon Garlic Chicken</h1>
-            <p class="subtitle" itemprop="description">Bright, zesty chicken with roasted potatoes and herbs.</p>
-          </div>
-          <div class="toolbar">
-            <div class="field" title="How many servings this recipe makes">
-              <label for="servingsInput">Servings</label>
-              <input id="servingsInput" type="number" step="0.5" min="0.5" value="4" inputmode="decimal" aria-label="Servings" />
-            </div>
-            <div class="field" title="The baseline servings the ingredient amounts are written for">
-              <label for="baseServings">Base</label>
-              <input id="baseServings" type="number" step="0.5" min="0.5" value="4" inputmode="decimal" aria-label="Base servings" />
-            </div>
-            <button class="primary" id="scaleBtn" aria-label="Scale ingredients">Scale</button>
-            <button id="resetBtn" aria-label="Reset ingredients">Reset</button>
-            <button id="printBtn" aria-label="Print recipe">Print</button>
-          </div>
-        </div>
-      </section>
+/* ===== Nutrition Section (safe, scoped styles) ===== */
 
-      <section class="grid">
-        <section class="panel" aria-labelledby="ingredientsTitle">
-          <h2 id="ingredientsTitle">Ingredients</h2>
-          <ul class="ingredients" id="ingredientsList">
-            <li class="ingredient" data-qty="1.5" data-unit="lb" data-name="chicken thighs">
-              <span class="qty"><span class="qty-out">1 1/2</span> lb</span>
-              <div class="name">bone-in, skin-on chicken thighs</div>
-            </li>
-            <li class="ingredient" data-qty="1.0" data-unit="lb" data-name="baby potatoes">
-              <span class="qty"><span class="qty-out">1</span> lb</span>
-              <div class="name">baby potatoes, halved</div>
-            </li>
-            <li class="ingredient" data-qty="3" data-unit="clove" data-name="garlic">
-              <span class="qty"><span class="qty-out">3</span> cloves</span>
-              <div class="name">garlic, minced</div>
-            </li>
-            <li class="ingredient" data-qty="2" data-unit="tbsp" data-name="olive oil">
-              <span class="qty"><span class="qty-out">2</span> tbsp</span>
-              <div class="name">olive oil</div>
-            </li>
-            <li class="ingredient" data-qty="1" data-unit="pc" data-name="lemon">
-              <span class="qty"><span class="qty-out">1</span></span>
-              <div class="name">lemon, zested & juiced</div>
-            </li>
-            <li class="ingredient" data-qty="1" data-unit="tsp" data-name="salt">
-              <span class="qty"><span class="qty-out">1</span> tsp</span>
-              <div class="name">kosher salt, plus more to taste</div>
-            </li>
-            <li class="ingredient" data-qty="0.5" data-unit="tsp" data-name="pepper">
-              <span class="qty"><span class="qty-out">1/2</span> tsp</span>
-              <div class="name">freshly ground black pepper</div>
-            </li>
-            <li class="ingredient" data-qty="1" data-unit="tbsp" data-name="parsley">
-              <span class="qty"><span class="qty-out">1</span> tbsp</span>
-              <div class="name">fresh parsley, chopped (for garnish)</div>
-            </li>
-          </ul>
-          <p class="note">Tip: Change “Servings” then press <strong>Scale</strong>. “Base” should match the serving count your original amounts are written for.</p>
-        </section>
+/* Container panel */
+#nutrition {
+  border: 1px solid #e5e7eb;      /* light gray border */
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 1rem;
+  margin: 1rem 1.25rem;            /* matches card padding rhythm */
+}
 
-        <section class="panel" aria-labelledby="directionsTitle">
-          <h2 id="directionsTitle">Directions</h2>
-          <ol class="directions" itemprop="recipeInstructions">
-            <li>Preheat oven to 425°F (220°C). Pat chicken dry.</li>
-            <li>Toss potatoes with 1 tbsp oil, half the garlic, salt, and pepper on a sheet pan.</li>
-            <li>Whisk remaining oil with lemon zest and juice, remaining garlic, and a pinch of salt.</li>
-            <li>Nestle chicken onto the pan. Brush with lemon-garlic mixture.</li>
-            <li>Roast 30–35 minutes until chicken reads 165°F (74°C) and potatoes are tender.</li>
-            <li>Rest 5 minutes; sprinkle with parsley and serve.</li>
-          </ol>
-        </section>
-      </section>
+/* Heading + helper note */
+#nutrition h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.1rem;
+  line-height: 1.3;
+}
 
-      <section class="panel" aria-labelledby="nutritionTitle" id="nutrition" data-cal="450" data-protein="35" data-carbs="28" data-fat="18">
-        <h2 id="nutritionTitle">Nutrition</h2>
-        <p class="note">Enter per-serving nutrition in the <code>data-</code> attributes on this section (defaults shown below). Totals update when you change servings.</p>
-        <table class="nutrition" role="table" aria-label="Nutrition information">
-          <thead>
-            <tr>
-              <th scope="col">&nbsp;</th>
-              <th scope="col">Calories</th>
-              <th scope="col">Protein (g)</th>
-              <th scope="col">Carbs (g)</th>
-              <th scope="col">Fat (g)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">Per serving</th>
-              <td class="kcal" id="perCal">—</td>
-              <td id="perProtein">—</td>
-              <td id="perCarbs">—</td>
-              <td id="perFat">—</td>
-            </tr>
-            <tr>
-              <th scope="row">Total (all servings)</th>
-              <td class="kcal" id="totCal">—</td>
-              <td id="totProtein">—</td>
-              <td id="totCarbs">—</td>
-              <td id="totFat">—</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
+#nutrition .note {
+  margin: 0 0 0.75rem;
+  color: #475569;                  /* muted slate */
+  font-size: 0.9rem;
+}
 
-      <footer class="footerbar">
-        <span>Prep: 10 min · Cook: 35 min · Total: 45 min</span>
-        <span>Easy · Gluten-Free</span>
-      </footer>
+/* Table base */
+#nutrition .nutrition {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;             /* keeps columns aligned on narrow screens */
+}
+
+/* Cells */
+#nutrition .nutrition th,
+#nutrition .nutrition td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+  vertical-align: baseline;
+  word-wrap: break-word;
+}
+
+/* Header row */
+#nutrition .nutrition thead th {
+  color: #475569;
+  font-weight: 600;
+}
+
+/* Row labels (first column) */
+#nutrition .nutrition tbody th[scope="row"] {
+  font-weight: 600;
+  color: #0f172a;                  /* dark text */
+  width: 30%;
+}
+
+/* Numeric columns */
+#nutrition .nutrition td,
+#nutrition .nutrition th:not([scope="row"]) {
+  font-variant-numeric: tabular-nums; /* aligns numbers */
+}
+
+/* Calories cell keeps “kcal” together */
+#nutrition .kcal {
+  white-space: nowrap;
+}
+
+/* Last row (totals) emphasis */
+#nutrition .nutrition tbody tr:last-child th[scope="row"],
+#nutrition .nutrition tbody tr:last-child td {
+  font-weight: 600;
+}
+
+/* Zebra stripes (optional, subtle) */
+#nutrition .nutrition tbody tr:nth-child(odd) td,
+#nutrition .nutrition tbody tr:nth-child(odd) th[scope="row"] {
+  background: #fafafa;
+}
+
+/* Small screens: allow table to scroll horizontally if needed */
+#nutrition {
+  overflow-x: auto;
+}
+
+/* Print: keep it clean */
+@media print {
+  #nutrition {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: #fff;
+  }
+  #nutrition .nutrition th,
+  #nutrition .nutrition td {
+    border-color: #ddd;
+  }
+}
