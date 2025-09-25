@@ -1,5 +1,26 @@
-// recipes.js — data only
+// recipes.js — data only (now with directions)
 window.__RECIPES = [
+  /* === High-Protein Breakfasts === */
+  {
+    id: 'greek-yogurt-parfait',
+    title: 'Greek Yogurt Parfait with Berries & Nuts',
+    type: 'breakfast',
+    url: 'recipes/recipe.html?id=greek-yogurt-parfait',
+    nutrition: { protein: 25, carbs: 35, fat: 10, calories: 320 },
+    baseServings: 1,
+    ingredients: [
+      { name: 'Greek yogurt (plain, nonfat)', qty: 1, unit: 'cup', category: 'Dairy' },
+      { name: 'Mixed berries', qty: 0.5, unit: 'cup', category: 'Produce' },
+      { name: 'Almonds or walnuts', qty: 2, unit: 'tbsp', category: 'Nuts' },
+      { name: 'Honey', qty: 1, unit: 'tsp', category: 'Pantry' }
+    ],
+    directions: [
+      'Spoon half of the yogurt into a bowl or glass.',
+      'Add half the berries and nuts.',
+      'Repeat the layers with remaining yogurt, berries, and nuts.',
+      'Drizzle honey on top and serve.'
+    ]
+  },
   {
     id: 'cottage-cheese-scramble',
     title: 'Cottage Cheese & Veggie Scramble',
@@ -11,7 +32,13 @@ window.__RECIPES = [
       { name: 'Eggs', qty: 2, unit: 'pc', category: 'Dairy' },
       { name: 'Cottage cheese', qty: 0.5, unit: 'cup', category: 'Dairy' },
       { name: 'Spinach', qty: 1, unit: 'cup', category: 'Produce' },
-      { name: 'Bell pepper', qty: 0.5, unit: 'cup', category: 'Produce' }
+      { name: 'Bell pepper (diced)', qty: 0.5, unit: 'cup', category: 'Produce' }
+    ],
+    directions: [
+      'Whisk eggs with a pinch of salt and pepper.',
+      'Sauté bell pepper until slightly tender; add spinach to wilt.',
+      'Add eggs and scramble gently until almost set.',
+      'Fold in cottage cheese and cook 30–60 seconds until creamy.'
     ]
   },
   {
@@ -25,7 +52,13 @@ window.__RECIPES = [
       { name: 'Rolled oats', qty: 0.5, unit: 'cup', category: 'Grains' },
       { name: 'Protein powder (whey or plant)', qty: 1, unit: 'scoop', category: 'Supplements' },
       { name: 'Peanut butter', qty: 1, unit: 'tbsp', category: 'Nuts' },
-      { name: 'Banana', qty: 0.5, unit: 'pc', category: 'Produce' }
+      { name: 'Banana (sliced)', qty: 0.5, unit: 'pc', category: 'Produce' }
+    ],
+    directions: [
+      'Cook oats with water or milk per package directions.',
+      'Let cool 1 minute, then stir in protein powder until smooth.',
+      'Top with peanut butter and banana slices.',
+      'Adjust thickness with a splash of milk if desired.'
     ]
   },
   {
@@ -40,6 +73,12 @@ window.__RECIPES = [
       { name: 'Smoked salmon', qty: 2, unit: 'oz', category: 'Meat' },
       { name: 'Avocado', qty: 0.25, unit: 'pc', category: 'Produce' },
       { name: 'Greek yogurt', qty: 2, unit: 'tbsp', category: 'Dairy' }
+    ],
+    directions: [
+      'Toast the bread to your liking.',
+      'Mash avocado with a pinch of salt and pepper.',
+      'Spread Greek yogurt, then avocado on toast.',
+      'Layer smoked salmon and serve with lemon if desired.'
     ]
   },
   {
@@ -51,10 +90,16 @@ window.__RECIPES = [
     baseServings: 1,
     ingredients: [
       { name: 'Egg whites', qty: 0.75, unit: 'cup', category: 'Dairy' },
-      { name: 'Turkey sausage', qty: 2, unit: 'oz', category: 'Meat' },
-      { name: 'Black beans', qty: 0.25, unit: 'cup', category: 'Legumes' },
-      { name: 'Cheddar cheese (shredded)', qty: 2, unit: 'tbsp', category: 'Dairy' },
+      { name: 'Turkey sausage (crumbled)', qty: 2, unit: 'oz', category: 'Meat' },
+      { name: 'Black beans (rinsed)', qty: 0.25, unit: 'cup', category: 'Legumes' },
+      { name: 'Cheddar (shredded)', qty: 2, unit: 'tbsp', category: 'Dairy' },
       { name: 'Whole wheat tortilla', qty: 1, unit: 'pc', category: 'Bakery' }
+    ],
+    directions: [
+      'Cook turkey sausage in a skillet until browned.',
+      'Add egg whites; scramble until set.',
+      'Warm tortilla; add eggs, sausage, beans, and cheese.',
+      'Roll tightly and toast seam-side down 30–60 seconds.'
     ]
   },
   {
@@ -65,11 +110,17 @@ window.__RECIPES = [
     nutrition: { protein: 27, carbs: 40, fat: 11, calories: 370 },
     baseServings: 1,
     ingredients: [
-      { name: 'Cooked quinoa', qty: 0.5, unit: 'cup', category: 'Grains' },
+      { name: 'Cooked quinoa (warm)', qty: 0.5, unit: 'cup', category: 'Grains' },
       { name: 'Greek yogurt', qty: 0.5, unit: 'cup', category: 'Dairy' },
       { name: 'Blueberries', qty: 0.25, unit: 'cup', category: 'Produce' },
-      { name: 'Almonds', qty: 2, unit: 'tbsp', category: 'Nuts' },
+      { name: 'Almonds (chopped)', qty: 2, unit: 'tbsp', category: 'Nuts' },
       { name: 'Almond butter', qty: 1, unit: 'tsp', category: 'Nuts' }
+    ],
+    directions: [
+      'Spoon warm quinoa into a bowl.',
+      'Top with Greek yogurt.',
+      'Add blueberries and chopped almonds.',
+      'Drizzle with almond butter and serve.'
     ]
   },
   {
@@ -85,6 +136,12 @@ window.__RECIPES = [
       { name: 'Rolled oats', qty: 0.5, unit: 'cup', category: 'Grains' },
       { name: 'Vanilla extract', qty: 0.5, unit: 'tsp', category: 'Pantry' },
       { name: 'Cinnamon', qty: 0.25, unit: 'tsp', category: 'Spices' }
+    ],
+    directions: [
+      'Blend oats, cottage cheese, eggs, vanilla, and cinnamon until smooth.',
+      'Heat a lightly oiled pan over medium heat.',
+      'Pour batter into small pancakes and cook until bubbles form.',
+      'Flip and cook 1–2 minutes more; serve with berries.'
     ]
   },
   {
@@ -98,8 +155,14 @@ window.__RECIPES = [
       { name: 'Eggs', qty: 2, unit: 'pc', category: 'Dairy' },
       { name: 'Chickpeas (cooked)', qty: 0.5, unit: 'cup', category: 'Legumes' },
       { name: 'Tomato sauce', qty: 0.5, unit: 'cup', category: 'Pantry' },
-      { name: 'Onion', qty: 0.25, unit: 'pc', category: 'Produce' },
-      { name: 'Feta cheese', qty: 2, unit: 'tbsp', category: 'Dairy' }
+      { name: 'Onion (diced)', qty: 0.25, unit: 'pc', category: 'Produce' },
+      { name: 'Feta cheese (crumbled)', qty: 2, unit: 'tbsp', category: 'Dairy' }
+    ],
+    directions: [
+      'Sauté onion in a skillet until translucent.',
+      'Add tomato sauce and chickpeas; simmer 3–4 minutes.',
+      'Make wells and crack in eggs; cover and cook to desired doneness.',
+      'Top with feta and herbs; serve with crusty bread.'
     ]
   },
   {
@@ -114,7 +177,13 @@ window.__RECIPES = [
       { name: 'Eggs', qty: 2, unit: 'pc', category: 'Dairy' },
       { name: 'Spinach', qty: 1, unit: 'cup', category: 'Produce' },
       { name: 'Salsa', qty: 0.25, unit: 'cup', category: 'Pantry' },
-      { name: 'Avocado', qty: 0.25, unit: 'pc', category: 'Produce' }
+      { name: 'Avocado (sliced)', qty: 0.25, unit: 'pc', category: 'Produce' }
+    ],
+    directions: [
+      'Brown turkey with salt, pepper, and your favorite spices.',
+      'Scramble eggs in a separate pan.',
+      'Layer turkey, eggs, and spinach in a bowl.',
+      'Top with salsa and avocado; serve.'
     ]
   },
   {
@@ -130,22 +199,16 @@ window.__RECIPES = [
       { name: 'Peanut butter', qty: 1, unit: 'tbsp', category: 'Nuts' },
       { name: 'Almond milk (unsweetened)', qty: 1, unit: 'cup', category: 'Dairy' },
       { name: 'Rolled oats', qty: 0.25, unit: 'cup', category: 'Grains' }
+    ],
+    directions: [
+      'Add all ingredients to a blender.',
+      'Blend until completely smooth.',
+      'Adjust thickness with more milk if needed.',
+      'Serve immediately.'
     ]
   },
-  {
-    id: 'greek-yogurt-parfait',
-    title: 'Greek Yogurt Parfait with Berries & Nuts',
-    type: 'breakfast',
-    url: 'recipes/recipe.html?id=greek-yogurt-parfait',
-    nutrition: { protein: 25, carbs: 35, fat: 10, calories: 320 },
-    baseServings: 1,
-    ingredients: [
-      { name: 'Greek yogurt (plain, nonfat)', qty: 1, unit: 'cup', category: 'Dairy' },
-      { name: 'Mixed berries', qty: 0.5, unit: 'cup', category: 'Produce' },
-      { name: 'Almonds or walnuts', qty: 2, unit: 'tbsp', category: 'Nuts' },
-      { name: 'Honey', qty: 1, unit: 'tsp', category: 'Pantry' }
-    ]
-  },
+
+  /* === Your earlier example recipes (now with directions) === */
   {
     id: 'lemon-chicken',
     title: 'Lemon Garlic Chicken',
@@ -156,12 +219,19 @@ window.__RECIPES = [
     ingredients: [
       { name: 'chicken thighs (bone-in, skin-on)', qty: 1.5, unit: 'lb', category: 'Meat' },
       { name: 'baby potatoes', qty: 1, unit: 'lb', category: 'Vegetables' },
-      { name: 'garlic', qty: 3, unit: 'clove', category: 'Spices' },
+      { name: 'garlic (minced)', qty: 3, unit: 'clove', category: 'Spices' },
       { name: 'olive oil', qty: 2, unit: 'tbsp', category: 'Pantry' },
       { name: 'lemon', qty: 1, unit: 'pc', category: 'Produce' },
       { name: 'kosher salt', qty: 1, unit: 'tsp', category: 'Spices' },
       { name: 'black pepper', qty: 0.5, unit: 'tsp', category: 'Spices' },
-      { name: 'parsley (fresh)', qty: 1, unit: 'tbsp', category: 'Produce' },
+      { name: 'parsley (fresh, chopped)', qty: 1, unit: 'tbsp', category: 'Produce' }
+    ],
+    directions: [
+      'Preheat oven to 425°F (220°C).',
+      'Toss potatoes with half the oil, salt, and pepper; spread on a sheet pan.',
+      'Season chicken with remaining oil, salt, pepper, minced garlic, and lemon zest.',
+      'Nestle chicken among potatoes; roast 35–45 minutes until chicken is crisp and cooked through.',
+      'Squeeze lemon juice over top, sprinkle parsley, and serve.'
     ]
   },
   {
@@ -176,7 +246,13 @@ window.__RECIPES = [
       { name: 'avocado', qty: 1, unit: 'pc', category: 'Produce' },
       { name: 'olive oil', qty: 1, unit: 'tsp', category: 'Pantry' },
       { name: 'salt', qty: 0.25, unit: 'tsp', category: 'Spices' },
-      { name: 'pepper', qty: 0.25, unit: 'tsp', category: 'Spices' },
+      { name: 'pepper', qty: 0.25, unit: 'tsp', category: 'Spices' }
+    ],
+    directions: [
+      'Toast the bread.',
+      'Mash avocado with olive oil, salt, and pepper.',
+      'Spread the avocado mixture onto toast.',
+      'Add optional toppings as desired (egg, chili flakes, etc.).'
     ]
   },
   {
@@ -188,11 +264,17 @@ window.__RECIPES = [
     baseServings: 2,
     ingredients: [
       { name: 'quinoa (dry)', qty: 1, unit: 'cup', category: 'Grains' },
-      { name: 'cherry tomatoes', qty: 1, unit: 'cup', category: 'Produce' },
+      { name: 'cherry tomatoes (halved)', qty: 1, unit: 'cup', category: 'Produce' },
       { name: 'spinach', qty: 2, unit: 'cup', category: 'Produce' },
-      { name: 'feta', qty: 0.5, unit: 'cup', category: 'Dairy' },
+      { name: 'feta (crumbled)', qty: 0.5, unit: 'cup', category: 'Dairy' },
       { name: 'olive oil', qty: 1, unit: 'tbsp', category: 'Pantry' },
-      { name: 'salt', qty: 0.5, unit: 'tsp', category: 'Spices' },
+      { name: 'salt', qty: 0.5, unit: 'tsp', category: 'Spices' }
+    ],
+    directions: [
+      'Cook quinoa according to package directions; fluff and cool slightly.',
+      'Toss warm quinoa with spinach to wilt lightly.',
+      'Add tomatoes, feta, olive oil, and salt; mix gently.',
+      'Serve warm or chilled.'
     ]
   },
   {
@@ -204,10 +286,16 @@ window.__RECIPES = [
     baseServings: 4,
     ingredients: [
       { name: 'baguette', qty: 1, unit: 'pc', category: 'Bakery' },
-      { name: 'butter', qty: 4, unit: 'tbsp', category: 'Dairy' },
-      { name: 'garlic', qty: 2, unit: 'clove', category: 'Spices' },
-      { name: 'parsley', qty: 1, unit: 'tbsp', category: 'Produce' },
-      { name: 'salt', qty: 0.25, unit: 'tsp', category: 'Spices' },
+      { name: 'butter (softened)', qty: 4, unit: 'tbsp', category: 'Dairy' },
+      { name: 'garlic (minced)', qty: 2, unit: 'clove', category: 'Spices' },
+      { name: 'parsley (chopped)', qty: 1, unit: 'tbsp', category: 'Produce' },
+      { name: 'salt', qty: 0.25, unit: 'tsp', category: 'Spices' }
+    ],
+    directions: [
+      'Preheat oven to 400°F (205°C).',
+      'Mix butter with garlic, parsley, and salt.',
+      'Slice baguette lengthwise and spread butter mixture evenly.',
+      'Bake 8–10 minutes until edges are crisp; slice and serve.'
     ]
   }
 ];

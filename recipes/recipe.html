@@ -9,52 +9,35 @@
   <link rel="stylesheet" href="../meal-planner.css" />
 
   <style>
-    /* Layout for recipe card: image left 1/3, content right 2/3 */
-    .recipe-wrap{
-      max-width: 1100px; margin: 2rem auto; padding: 0 1rem;
-    }
+    .recipe-wrap{ max-width:1100px; margin:2rem auto; padding:0 1rem; }
     .recipe-card{
-      display: grid; grid-template-columns: 1fr 2fr; gap: 1rem;
-      background: rgba(255,255,255,.65);
-      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,.3); border-radius: 14px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.1); overflow: hidden;
+      display:grid; grid-template-columns:1fr 2fr; gap:1rem;
+      background:rgba(255,255,255,.65);
+      backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+      border:1px solid rgba(255,255,255,.3); border-radius:14px;
+      box-shadow:0 10px 30px rgba(0,0,0,.1); overflow:hidden;
     }
-    .recipe-media{
-      aspect-ratio: 4/3; width: 100%; height: 100%;
-      overflow: hidden; background: #ddd;
-    }
-    .recipe-media img{
-      width: 100%; height: 100%; object-fit: cover; display: block;
-    }
-    .recipe-body{ padding: 1rem; }
+    .recipe-media{ aspect-ratio:4/3; width:100%; height:100%; overflow:hidden; background:#ddd; }
+    .recipe-media img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .recipe-body{ padding:1rem; }
     .recipe-header{ display:flex; align-items:center; gap:.75rem; flex-wrap:wrap; }
     .recipe-header h1{ margin:.25rem 0; font-size:1.8rem; }
-    .tag{display:inline-block; font-size:.75rem; padding:.15rem .5rem; border:1px solid #e5e7eb; border-radius:999px; color:#475569}
+    .tag{ display:inline-block; font-size:.75rem; padding:.15rem .5rem; border:1px solid #e5e7eb; border-radius:999px; color:#475569 }
     .servings{
       display:inline-flex; align-items:center; gap:.45rem; padding:.25rem .6rem;
       border:1px solid #e5e7eb; border-radius:999px; background:#fff; margin:.25rem 0 0;
     }
     .servings input{ width:6ch; border:0; outline:none; background:transparent; font:inherit; }
-    .grid-2{ display:grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: .75rem; }
+    .grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:.75rem; }
     h2{ font-size:1.1rem; margin:0 0 .4rem; color:#334155 }
-    ul.ing{ list-style: none; padding:0; margin:0; }
+    ul.ing{ list-style:none; padding:0; margin:0; }
     ul.ing li{ padding:.25rem 0; border-bottom:1px dashed #e5e7eb; }
-    .nutri{
-      display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; font-size:.95rem; color:#475569
-    }
-    .chip{ display:inline-flex; align-items:center; gap:.35rem; padding:.2rem .55rem; border:1px solid #e5e7eb; border-radius:999px; background:#fff; font-variant-numeric: tabular-nums; }
+    .nutri{ display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; font-size:.95rem; color:#475569 }
+    .chip{ display:inline-flex; align-items:center; gap:.35rem; padding:.2rem .55rem; border:1px solid #e5e7eb; border-radius:999px; background:#fff; font-variant-numeric:tabular-nums; }
     ol.dir{ margin:.25rem 0 0 1.1rem; }
     .actions{ display:flex; gap:.5rem; justify-content:flex-end; margin-top:.75rem; }
-    .btn{
-      display:inline-block; text-decoration:none; border:1px solid #e5e7eb; border-radius:999px;
-      padding:.45rem .8rem; background:#fff; color:#0f172a; font:inherit; cursor:pointer;
-    }
-    @media(max-width:900px){
-      .recipe-card{ grid-template-columns: 1fr; }
-      .recipe-media{ aspect-ratio: 3/2; }
-      .grid-2{ grid-template-columns: 1fr; }
-    }
+    .btn{ display:inline-block; text-decoration:none; border:1px solid #e5e7eb; border-radius:999px; padding:.45rem .8rem; background:#fff; color:#0f172a; font:inherit; cursor:pointer; }
+    @media(max-width:900px){ .recipe-card{ grid-template-columns:1fr; } .recipe-media{ aspect-ratio:3/2; } .grid-2{ grid-template-columns:1fr; } }
   </style>
 
   <script src="../recipes.js"></script>
@@ -90,18 +73,13 @@
           </div>
           <div>
             <h2>Nutrition (scaled)</h2>
-            <div class="nutri" id="nutrition">
-              <!-- chips injected -->
-            </div>
+            <div class="nutri" id="nutrition"></div>
           </div>
         </div>
 
         <div style="margin-top:1rem;">
           <h2>Directions</h2>
-          <ol class="dir" id="directions">
-            <li>Write your steps here and save the file later.</li>
-            <li>This placeholder is the same for all recipes until you customize it.</li>
-          </ol>
+          <ol class="dir" id="directions"></ol>
         </div>
 
         <div class="actions">
@@ -125,25 +103,23 @@
       const servingsMeta  = document.getElementById('servingsMeta');
       const ingEl   = document.getElementById('ingredients');
       const nutEl   = document.getElementById('nutrition');
+      const dirEl   = document.getElementById('directions');
       const openRaw = document.getElementById('openRaw');
 
       if (!r) {
         titleEl.textContent = 'Recipe not found';
         typeEl.textContent = 'N/A';
-        document.getElementById('directions').innerHTML = '<li>Invalid recipe id.</li>';
+        dirEl.innerHTML = '<li>Invalid recipe id.</li>';
         return;
       }
 
-      // Header
       document.title = r.title + ' — Recipe';
       titleEl.textContent = r.title;
       typeEl.textContent = (r.type || '').charAt(0).toUpperCase() + (r.type||'').slice(1);
 
-      // Use placeholder image; replace later by editing this file or adding r.image
-      // If you later add r.image to recipes.js, uncomment below:
+      // If you later add r.image to recipes.js, uncomment this:
       // if (r.image) document.getElementById('photo').src = r.image;
 
-      // Raw URL from recipes.js (useful if you kept direct pages for some)
       if (r.url) { openRaw.href = r.url; } else { openRaw.style.display = 'none'; }
 
       const base = Math.max(1, +r.baseServings || 1);
@@ -154,7 +130,7 @@
         const s = Math.max(0, +servingsInput.value || 0);
         const factor = s / base;
 
-        // Ingredients
+        // Ingredients (scaled)
         ingEl.innerHTML = '';
         (r.ingredients || []).forEach(ing => {
           const li = document.createElement('li');
@@ -165,29 +141,35 @@
           ingEl.appendChild(li);
         });
 
-        // Nutrition (per-serving * servings → totals)
+        // Nutrition (per-serving * servings)
         const n = r.nutrition || {};
         const protein  = ((+n.protein  || 0) * s).toFixed(1);
         const carbs    = ((+n.carbs    || 0) * s).toFixed(1);
         const fat      = ((+n.fat      || 0) * s).toFixed(1);
         const calories = Math.round((+n.calories || 0) * s);
-
         nutEl.innerHTML = `
           <span class="chip"><strong>P</strong> ${protein} g</span>
           <span class="chip"><strong>C</strong> ${carbs} g</span>
           <span class="chip"><strong>F</strong> ${fat} g</span>
           <span class="chip"><strong>kcal</strong> ${calories}</span>
         `;
+
+        // Directions (from recipes.js; no scaling)
+        dirEl.innerHTML = '';
+        const steps = Array.isArray(r.directions) && r.directions.length ? r.directions
+                     : ['Write your steps in recipes.js under this recipe’s "directions" array.'];
+        steps.forEach(txt => {
+          const li = document.createElement('li');
+          li.textContent = txt;
+          dirEl.appendChild(li);
+        });
       }
 
       servingsInput.addEventListener('change', render);
       servingsInput.addEventListener('keyup', e => { if (e.key === 'Enter') render(); });
       document.getElementById('printBtn').addEventListener('click', () => window.print());
       document.getElementById('copyLink').addEventListener('click', async () => {
-        try {
-          await navigator.clipboard.writeText(location.href);
-          alert('Link copied!');
-        } catch { /* ignore */ }
+        try { await navigator.clipboard.writeText(location.href); alert('Link copied!'); } catch {}
       });
 
       render();
