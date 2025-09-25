@@ -11,15 +11,36 @@
   <style>
     .recipe-wrap{ max-width:1100px; margin:2rem auto; padding:0 1rem; }
     .recipe-card{
-      display:grid; grid-template-columns:1fr 2fr; gap:1rem;
+      display:grid;
+      grid-template-columns:1fr 2fr;  /* image 1/3, text 2/3 */
+      gap:1rem;
+      align-items:start;              /* prevent image stretch */
       background:rgba(255,255,255,.65);
       backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
-      border:1px solid rgba(255,255,255,.3); border-radius:14px;
-      box-shadow:0 10px 30px rgba(0,0,0,.1); overflow:hidden;
+      border:1px solid rgba(255,255,255,.3);
+      border-radius:14px;
+      box-shadow:0 10px 30px rgba(0,0,0,.1);
+      overflow:hidden;
     }
-    .recipe-media{ aspect-ratio:4/3; width:100%; height:100%; overflow:hidden; background:#ddd; }
-    .recipe-media img{ width:100%; height:100%; object-fit:cover; display:block; }
-    .recipe-body{ padding:1rem; }
+    .recipe-media{
+      margin:0;               /* remove default figure spacing */
+      width:100%;
+      height:auto;
+      align-self:start;       /* keep image column natural height */
+      display:block;
+      background:#f3f4f6;
+      overflow:hidden;
+    }
+    .recipe-media img{
+      display:block;
+      width:100%;             /* fill column horizontally */
+      height:auto;            /* maintain aspect ratio */
+      object-fit:contain;     /* ensure no cropping */
+    }
+    .recipe-body{
+      padding:1rem;
+      min-width:0;            /* prevent text overlap */
+    }
     .recipe-header{ display:flex; align-items:center; gap:.75rem; flex-wrap:wrap; }
     .recipe-header h1{ margin:.25rem 0; font-size:1.8rem; }
     .tag{ display:inline-block; font-size:.75rem; padding:.15rem .5rem; border:1px solid #e5e7eb; border-radius:999px; color:#475569 }
@@ -37,7 +58,9 @@
     ol.dir{ margin:.25rem 0 0 1.1rem; }
     .actions{ display:flex; gap:.5rem; justify-content:flex-end; margin-top:.75rem; }
     .btn{ display:inline-block; text-decoration:none; border:1px solid #e5e7eb; border-radius:999px; padding:.45rem .8rem; background:#fff; color:#0f172a; font:inherit; cursor:pointer; }
-    @media(max-width:900px){ .recipe-card{ grid-template-columns:1fr; } .recipe-media{ aspect-ratio:3/2; } .grid-2{ grid-template-columns:1fr; } }
+    @media(max-width:900px){
+      .recipe-card{ grid-template-columns:1fr; }
+    }
   </style>
 
   <script src="../recipes.js"></script>
@@ -117,20 +140,22 @@
       titleEl.textContent = r.title;
       typeEl.textContent = (r.type || '').charAt(0).toUpperCase() + (r.type||'').slice(1);
 
-      // If you later add r.image to recipes.js, uncomment this:
+      // If you add an "image" field in recipes.js, uncomment this:
       // if (r.image) document.getElementById('photo').src = r.image;
 
       if (r.url) { openRaw.href = r.url; } else { openRaw.style.display = 'none'; }
 
       const base = Math.max(1, +r.baseServings || 1);
-      servingsInput.value = base;
+      const sParam = parseFloat(new URLSearchParams(location.search).get('s'));
+      const initialServings = (!isNaN(sParam) && sParam >= 0) ? sParam : base;
+      servingsInput.value = initialServings;
       servingsMeta.textContent = `(base ${base} ${base === 1 ? 'serving' : 'servings'})`;
 
       function render() {
         const s = Math.max(0, +servingsInput.value || 0);
         const factor = s / base;
 
-        // Ingredients (scaled)
+        // Ingredients
         ingEl.innerHTML = '';
         (r.ingredients || []).forEach(ing => {
           const li = document.createElement('li');
@@ -141,7 +166,7 @@
           ingEl.appendChild(li);
         });
 
-        // Nutrition (per-serving * servings)
+        // Nutrition
         const n = r.nutrition || {};
         const protein  = ((+n.protein  || 0) * s).toFixed(1);
         const carbs    = ((+n.carbs    || 0) * s).toFixed(1);
@@ -154,7 +179,7 @@
           <span class="chip"><strong>kcal</strong> ${calories}</span>
         `;
 
-        // Directions (from recipes.js; no scaling)
+        // Directions
         dirEl.innerHTML = '';
         const steps = Array.isArray(r.directions) && r.directions.length ? r.directions
                      : ['Write your steps in recipes.js under this recipe’s "directions" array.'];

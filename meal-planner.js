@@ -252,13 +252,29 @@ function buildPlannerTable(weekStartISO) {
       const meta = document.createElement('div');
       meta.className = 'meal-meta';
 
+      // Paint the small meta row with "Open recipe" link (including &s=...)
       function paintMeta() {
         const r = findRecipeById(sel.value);
         const s = Math.max(0, +servingsInput.value || 0);
-        if (!r) { meta.innerHTML = '<span class="tag">No recipe selected</span>'; return; }
+        if (!r) {
+          meta.innerHTML = '<span class="tag">No recipe selected</span>';
+          return;
+        }
+
+        // Build URL with current servings (&s=...)
+        let href = r.url || '';
+        try {
+          const u = new URL(r.url, location.href);
+          if (!u.searchParams.get('id') && r.id) u.searchParams.set('id', r.id);
+          u.searchParams.set('s', s);
+          href = u.pathname + u.search; // keep relative
+        } catch {
+          href += (href.includes('?') ? '&' : '?') + 's=' + encodeURIComponent(s);
+        }
+
         meta.innerHTML = `
           <span class="tag">${meal.label}</span>
-          <a href="${r.url}" target="_blank" rel="noopener">Open recipe</a>
+          <a href="${href}" target="_blank" rel="noopener">Open recipe</a>
           <span class="tag">${s}× serving${s === 1 ? '' : 's'}</span>
         `;
       }
