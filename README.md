@@ -1,2 +1,2 @@
-# menu planner
-Web version of menu planner with recipe cards
+# recipe-card
+Recipe Card Template

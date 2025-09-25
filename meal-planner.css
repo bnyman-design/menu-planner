@@ -1,0 +1,103 @@
+:root{
+  --bg:#f9fafb; --card:#fff; --text:#0f172a; --muted:#475569;
+  --border:#e5e7eb; --accent:#16a34a; --danger:#dc2626; --radius:14px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  line-height:1.5;
+}
+
+.container{max-width:1100px; margin:2rem auto; padding:0 1rem;}
+.topbar h1{margin:0 0 .5rem;}
+.week-controls{
+  display:flex; gap:.5rem; align-items:center; flex-wrap:wrap;
+  margin:.5rem 0 0;
+}
+.weekpicker{display:inline-flex; align-items:center; gap:.5rem; padding:.25rem .75rem; border:1px solid var(--border); border-radius:999px; background:#fff;}
+.weekpicker input{border:0; outline:none; font:inherit; background:transparent;}
+.week-controls button{border:1px solid var(--border); background:#fff; padding:.4rem .7rem; border-radius:999px; cursor:pointer}
+.week-controls .ghost{background:#fff}
+.week-controls .danger{border-color:var(--danger); color:var(--danger)}
+.week-controls #printBtn{border-color:var(--border); color:var(--muted)}
+.week-controls #prevWeek, .week-controls #nextWeek{width:2.25rem}
+.spacer{flex:1}
+.hint{color:var(--muted); margin:.5rem 0 1rem; font-size:.95rem}
+
+.planner{
+  background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+  box-shadow:0 10px 30px rgba(0,0,0,.04);
+  /* allow native <select> menus to open outside the box */
+  overflow: visible;
+}
+.planner-table{width:100%; border-collapse:collapse}
+.planner-table thead th{
+  text-align:left; background:#fff; position:sticky; top:0; z-index:1;
+  padding:.9rem .9rem; border-bottom:1px solid var(--border); color:var(--muted);
+}
+.planner-table tbody td, .planner-table tbody th{
+  padding:.75rem .9rem; border-top:1px solid var(--border); vertical-align:top;
+}
+.planner-table tbody th{width:8.5rem; white-space:nowrap}
+
+.meal-slot{display:grid; gap:.45rem}
+.meal-select{
+  width:100%; padding:.5rem .6rem; border:1px solid var(--border);
+  border-radius:10px; background:#fff; font:inherit; color:var(--text);
+}
+
+.servings{
+  display:inline-flex; align-items:center; gap:.45rem;
+  padding:.25rem .6rem; border:1px solid var(--border); border-radius:999px;
+  background:#fff; width:max-content;
+}
+.servings label{font-size:.85rem; color:var(--muted)}
+.servings input{
+  width:6ch; border:0; outline:none; background:transparent; font:inherit;
+}
+.servings small{color:var(--muted)}
+
+.meal-meta{display:flex; gap:.5rem; align-items:center; font-size:.9rem; color:var(--muted)}
+.meal-meta a{color:inherit; text-decoration:underline}
+.tag{display:inline-block; font-size:.75rem; padding:.15rem .5rem; border:1px solid var(--border); border-radius:999px; color:var(--muted)}
+
+/* === Per-day nutrition row (inserted under each day) === */
+.nutri-row td{
+  padding: .5rem .9rem .9rem;
+  border-top: 0; /* sits under a main row which already has a border */
+}
+.nutri-line{
+  display:flex; gap:.75rem; flex-wrap:wrap; align-items:center;
+  font-size:.9rem; color:var(--muted);
+}
+.nutri-line .label{font-weight:600; color:var(--text); margin-right:.25rem}
+.nutri-chip{
+  display:inline-flex; align-items:center; gap:.35rem;
+  padding:.2rem .55rem; border:1px solid var(--border); border-radius:999px;
+  background:#fff; font-variant-numeric: tabular-nums;
+}
+
+/* Mobile stacking */
+@media (max-width:900px){
+  .planner-table thead{display:none}
+  .planner-table, .planner-table tbody, .planner-table tr, .planner-table td, .planner-table th{display:block; width:100%}
+  .planner-table tbody th{background:#fff; position:sticky; top:0; border-top:0; border-bottom:1px solid var(--border)}
+  .planner-table tbody tr{padding-bottom:.25rem; border-bottom:1px solid var(--border)}
+  .planner-table tbody td{border:0; padding:.6rem .9rem}
+  .planner-table tbody td::before{
+    content:attr(data-label); display:block; color:var(--muted); font-size:.8rem; margin-bottom:.25rem;
+  }
+  /* Don't prepend labels on the nutrition row */
+  .nutri-row td::before{content:''; display:none}
+  .nutri-line{padding-top:.25rem}
+}
+
+@media print{
+  body{background:#fff}
+  .container{margin:0; padding:0}
+  .topbar .week-controls button, .hint{display:none}
+  .planner{box-shadow:none; border:0}
+}

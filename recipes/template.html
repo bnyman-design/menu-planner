@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Recipe Card</title>
+
+  <!-- Global layout styles live here -->
+  <style>
+    :root {
+      --bg: #f9fafb;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --accent: #16a34a;
+      --border: #e5e7eb;
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+      overflow: clip;
+    }
+
+    /* === TOP ROW: 1/3 image, 2/3 content === */
+    .header {
+      display: grid;
+      grid-template-columns: 1fr 2fr; /* 1/3 : 2/3 */
+      gap: 1.25rem;
+      align-items: start;
+      padding: 1.25rem;
+    }
+
+    .hero {
+      width: 100%;
+      height: 100%;
+      max-height: 460px;       /* adjust if you want shorter/taller image */
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+      background: #ddd;
+    }
+
+    .right-col {
+      display: grid;
+      grid-template-rows: auto auto 1fr; /* title, toolbar, ingredients */
+      gap: 0.75rem;
+      min-width: 0;
+    }
+
+    .titlebar { padding: 0; }
+    h1 { margin: 0 0 0.25rem; font-size: clamp(1.25rem, 2vw + 1rem, 2rem); }
+    .subtitle { color: var(--muted); font-size: 0.95rem; margin: 0; }
+
+    .toolbar {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .field {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.35rem 0.75rem;
+      background: #fff;
+    }
+    .field label { font-size: 0.9rem; color: var(--muted); }
+    .field input[type="number"] {
+      width: 6ch;
+      border: 0;
+      outline: none;
+      font-size: 1rem;
+      padding: 0.2rem;
+      background: transparent;
+    }
+
+    button {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: #fff;
+      border-radius: 999px;
+      padding: 0.5rem 0.9rem;
+      cursor: pointer;
+    }
+    button.primary { border-color: transparent; background: var(--accent); color: #fff; }
+
+    /* Ingredients panel (now inside the right column) */
+    .panel {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      background: #fff;
+    }
+    .panel h2 { margin: 0 0 0.75rem; font-size: 1.1rem; }
+
+    ul.ingredients { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.5rem; }
+    .ingredient {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.75rem;
+      align-items: baseline;
+      border-bottom: 1px dashed var(--border);
+      padding-bottom: 0.5rem;
+    }
+    .ingredient:last-child { border-bottom: 0; }
+    .qty { font-variant-numeric: tabular-nums; min-width: 7ch; }
+    .name { color: var(--text); }
+    .note { color: var(--muted); font-size: 0.9rem; margin-top: 0.5rem; }
+
+    /* === BELOW THE HEADER: stack Nutrition then Directions === */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      padding: 0 1.25rem 1.25rem;
+    }
+
+    /* Footer (optional) */
+    .footerbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.25rem 1.25rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* Responsive: stack image/content on small screens */
+    @media (max-width: 820px) {
+      .header { grid-template-columns: 1fr; }
+      .hero   { max-height: 300px; }
+    }
+
+    /* Print-friendly */
+    @media print {
+      body { background: #fff; }
+      .container { margin: 0; padding: 0; }
+      .toolbar button, .footerbar { display: none; }
+      .card { box-shadow: none; border: 0; }
+    }
+  </style>
+
+  <!-- Nutrition-only styles in a separate CSS file -->
+  <link rel="stylesheet" href="nutrition-tab.css">
+
+  <!-- Behavior (scaling + nutrition updates) -->
+  <script src="scaler.js" defer></script>
+</head>
+<body>
+  <main class="container">
+    <article class="card" itemscope itemtype="https://schema.org/Recipe">
+      <!-- ===== TOP ROW ===== -->
+      <section class="header">
+        <!-- Left: Image (1/3) -->
+        <img
+          src="../images/cottagecheese-peaches.jpg?q=80&w=1600&auto=format&fit=crop" 
+          alt="Cottage Cheese with Peaches"
+          class="hero"
+          itemprop="image"
+        />
+
+        <!-- Right: Title + Toolbar + Ingredients (2/3) -->
+        <div class="right-col">
+          <div class="titlebar">
+            <h1 itemprop="name">Recipe Title</h1>
+            <p class="subtitle" itemprop="description">Short description</p>
+          </div>
+
+          <div class="toolbar">
+            <div class="field" title="How many servings this recipe makes">
+              <label for="servingsInput">Servings</label>
+              <input id="servingsInput" type="number" step="0.5" min="0.5" value="4" inputmode="decimal" aria-label="Servings" />
+            </div>
+            <div class="field" title="The baseline servings the ingredient amounts are written for">
+              <label for="baseServings">Base</label>
+              <input id="baseServings" type="number" step="0.5" min="0.5" value="4" inputmode="decimal" aria-label="Base servings" />
+            </div>
+            <button class="primary" id="scaleBtn" aria-label="Scale ingredients">Scale</button>
+            <button id="resetBtn" aria-label="Reset ingredients">Reset</button>
+            <button id="printBtn" aria-label="Print recipe">Print</button>
+          </div>
+
+          <section class="panel" aria-labelledby="ingredientsTitle" id="ingredientsPanel">
+            <h2 id="ingredientsTitle">Ingredients</h2>
+            <ul class="ingredients" id="ingredientsList">
+              <!-- Each ingredient carries its base quantity in data- attributes -->
+              <li class="ingredient" data-qty="1.5" data-unit="lb" data-name="chicken thighs">
+                <span class="qty"><span class="qty-out">1 1/2</span> lb</span>
+                <div class="name">Ingredient 1</div>
+              </li>
+              <li class="ingredient" data-qty="1.0" data-unit="lb" data-name="baby potatoes">
+                <span class="qty"><span class="qty-out">1</span> lb</span>
+                <div class="name">Ingredient 2</div>
+              </li>
+              <li class="ingredient" data-qty="3" data-unit="clove" data-name="garlic">
+                <span class="qty"><span class="qty-out">3</span> cloves</span>
+                <div class="name">Ingredient 3</div>
+              </li>
+              <li class="ingredient" data-qty="2" data-unit="tbsp" data-name="olive oil">
+                <span class="qty"><span class="qty-out">2</span> tbsp</span>
+                <div class="name">Ingredient 4</div>
+              </li>
+              <li class="ingredient" data-qty="1" data-unit="pc" data-name="lemon">
+                <span class="qty"><span class="qty-out">1</span></span>
+                <div class="name">Ingredient 5</div>
+              </li>
+              <li class="ingredient" data-qty="1" data-unit="tsp" data-name="salt">
+                <span class="qty"><span class="qty-out">1</span> tsp</span>
+                <div class="name">Ingredient 6</div>
+              </li>
+              <li class="ingredient" data-qty="0.5" data-unit="tsp" data-name="pepper">
+                <span class="qty"><span class="qty-out">1/2</span> tsp</span>
+                <div class="name">Ingredient 7</div>
+              </li>
+              <li class="ingredient" data-qty="1" data-unit="tbsp" data-name="parsley">
+                <span class="qty"><span class="qty-out">1</span> tbsp</span>
+                <div class="name">Ingredient 8</div>
+              </li>
+            </ul>
+            <p class="note">Tip: Change “Servings” then press <strong>Scale</strong>. “Base” should match the serving count your original amounts are written for.</p>
+          </section>
+        </div>
+      </section>
+
+      <!-- ===== BELOW: Nutrition then Directions ===== -->
+      <section class="grid">
+        <!-- Nutrition -->
+        <section class="panel" aria-labelledby="nutritionTitle" id="nutrition"
+                 data-cal="450" data-protein="35" data-carbs="28" data-fat="18">
+          <h2 id="nutritionTitle">Nutrition</h2>
+          <p class="note">Per-serving values set via <code>data-</code> attributes; totals scale with Servings.</p>
+          <table class="nutrition" role="table" aria-label="Nutrition information">
+            <thead>
+              <tr>
+                <th scope="col">&nbsp;</th>
+                <th scope="col">Calories</th>
+                <th scope="col">Protein (g)</th>
+                <th scope="col">Carbs (g)</th>
+                <th scope="col">Fat (g)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Per serving</th>
+                <td class="kcal" id="perCal">—</td>
+                <td id="perProtein">—</td>
+                <td id="perCarbs">—</td>
+                <td id="perFat">—</td>
+              </tr>
+              <tr>
+                <th scope="row">Total (all servings)</th>
+                <td class="kcal" id="totCal">—</td>
+                <td id="totProtein">—</td>
+                <td id="totCarbs">—</td>
+                <td id="totFat">—</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Directions -->
+        <section class="panel" aria-labelledby="directionsTitle">
+          <h2 id="directionsTitle">Directions</h2>
+          <ol class="directions" itemprop="recipeInstructions">
+            <li>Directions 1</li>
+            <li>Directions 2</li>
+            <li>Directions 3</li>
+            <li>Directions 4</li>
+            <li>Directions 5</li>
+            <li>Directions 6</li>
+          </ol>
+        </section>
+      </section>
+
+      <footer class="footerbar">
+        <span>Prep: 10 min · Cook: 35 min · Total: 45 min</span>
+        <span>Easy · Gluten-Free</span>
+      </footer>
+    </article>
+  </main>
+</body>
+</html>

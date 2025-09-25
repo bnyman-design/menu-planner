@@ -1,15 +1,12 @@
-/* ===== Nutrition Section (safe, scoped styles) ===== */
+/* ===== Nutrition Section (scoped styles) ===== */
 
-/* Container panel */
 #nutrition {
-  border: 1px solid #e5e7eb;      /* light gray border */
+  border: 1px solid #e5e7eb;
   border-radius: 12px;
   background: #ffffff;
   padding: 1rem;
-  margin: 1rem 1.25rem;            /* matches card padding rhythm */
 }
 
-/* Heading + helper note */
 #nutrition h2 {
   margin: 0 0 0.75rem;
   font-size: 1.1rem;
@@ -18,18 +15,16 @@
 
 #nutrition .note {
   margin: 0 0 0.75rem;
-  color: #475569;                  /* muted slate */
+  color: #475569;
   font-size: 0.9rem;
 }
 
-/* Table base */
 #nutrition .nutrition {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;             /* keeps columns aligned on narrow screens */
+  table-layout: fixed;
 }
 
-/* Cells */
 #nutrition .nutrition th,
 #nutrition .nutrition td {
   padding: 0.5rem 0.75rem;
@@ -39,53 +34,38 @@
   word-wrap: break-word;
 }
 
-/* Header row */
 #nutrition .nutrition thead th {
   color: #475569;
   font-weight: 600;
 }
 
-/* Row labels (first column) */
 #nutrition .nutrition tbody th[scope="row"] {
   font-weight: 600;
-  color: #0f172a;                  /* dark text */
+  color: #0f172a;
   width: 30%;
 }
 
-/* Numeric columns */
 #nutrition .nutrition td,
 #nutrition .nutrition th:not([scope="row"]) {
-  font-variant-numeric: tabular-nums; /* aligns numbers */
+  font-variant-numeric: tabular-nums;
 }
 
-/* Calories cell keeps “kcal” together */
-#nutrition .kcal {
-  white-space: nowrap;
-}
+#nutrition .kcal { white-space: nowrap; }
 
-/* Last row (totals) emphasis */
 #nutrition .nutrition tbody tr:last-child th[scope="row"],
 #nutrition .nutrition tbody tr:last-child td {
   font-weight: 600;
 }
 
-/* Zebra stripes (optional, subtle) */
 #nutrition .nutrition tbody tr:nth-child(odd) td,
 #nutrition .nutrition tbody tr:nth-child(odd) th[scope="row"] {
   background: #fafafa;
 }
 
-/* Small screens: allow table to scroll horizontally if needed */
-#nutrition {
-  overflow-x: auto;
-}
-
-/* Print: keep it clean */
 @media print {
   #nutrition {
     border: 0;
     padding: 0;
-    margin: 0;
     background: #fff;
   }
   #nutrition .nutrition th,
