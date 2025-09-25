@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grocery List</title>
+
+  <!-- Reuse your site styles -->
+  <link rel="stylesheet" href="meal-planner.css" />
+  <script src="recipes.js"></script>
+  <script src="grocery.js" defer></script>
+</head>
+<body>
+  <main class="container">
+    <header class="topbar">
+      <h1>Grocery List</h1>
+
+      <div class="week-controls">
+        <a href="index.html" class="ghost" style="text-decoration:none; padding:.4rem .7rem; border:1px solid var(--border); border-radius:999px;">← Back to Planner</a>
+
+        <div class="spacer"></div>
+
+        <label class="weekpicker" style="margin-left:auto">
+          <span>Week of</span>
+          <input type="date" id="weekOf" />
+        </label>
+
+        <div class="spacer"></div>
+
+        <button id="printBtn" class="ghost">Print</button>
+        <button id="clearChecks" class="ghost">Clear checks</button>
+      </div>
+      <p class="hint">
+        This list is built from your weekly selections and per-meal servings. Check items as you buy them.
+      </p>
+    </header>
+
+    <!-- Grocery List -->
+    <section class="grocery">
+      <div class="ghead">
+        <h2>Items</h2>
+        <div class="gtools">
+          <button id="gCheckAll" class="ghost">Check all</button>
+          <button id="gUncheckAll" class="ghost">Uncheck all</button>
+          <button id="gHideZero" class="ghost">Hide zero items</button>
+          <button id="gShowZero" class="ghost">Show zero items</button>
+        </div>
+      </div>
+      <div id="groceryBody" class="gbody" aria-live="polite"></div>
+      <p class="summary-note">Quantities reflect servings for this week.</p>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,15 +1,7 @@
-/* ===== Configure your recipes here ===== */
-const recipes = [
-  { id: 'lemon-chicken', title: 'Lemon Garlic Chicken', type: 'dinner',   url: 'recipes/lemon-chicken.html',
-    nutrition: { protein: 35, carbs: 28, fat: 18, calories: 450 } },
-  { id: 'template', title: 'Template', type: 'breakfast', url: 'recipes/template.html',
-    nutrition: { protein: 7, carbs: 22, fat: 12, calories: 250 } },
-  { id: 'quinoa-bowl',   title: 'Quinoa Veggie Bowl',   type: 'lunch',     url: 'recipes/quinoa-bowl.html',
-    nutrition: { protein: 14, carbs: 45, fat: 10, calories: 360 } },
-  { id: 'garlic-bread',  title: 'Garlic Bread',         type: 'side',      url: 'recipes/garlic-bread.html',
-    nutrition: { protein: 5, carbs: 30, fat: 8,  calories: 220 } },
-];
+/* ===== Recipes source (from recipes.js) ===== */
+const recipes = Array.isArray(window.__RECIPES) ? window.__RECIPES : [];
 
+/* ===== Constants ===== */
 const DAYS  = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const MEALS = [
   { key: 'breakfast', label: 'Breakfast' },
@@ -18,14 +10,18 @@ const MEALS = [
   { key: 'side',      label: 'Side' },
 ];
 
-// bump storage version because shape changed (each cell stores {id, s})
-const LS_KEY = 'mealPlanner.v3';
+// Storage keys
+const LS_PLAN = 'mealPlanner.v3';       // selections & servings
+const LS_GROC = 'mealPlanner.grocery';  // checkbox state by week
+
+/* Track current week ISO (YYYY-MM-DD for Sunday) */
+let CURRENT_ISO = null;
 
 /* ===== Date helpers (LOCAL time) ===== */
 function startOfWeekLocal(date) {
-  const d = new Date(date.getFullYear(), date.getMonth(), date.getDate()); // midnight local
-  const day = d.getDay(); // 0=Sun
-  d.setDate(d.getDate() - day); // Sunday
+  const d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  const day = d.getDay(); // 0 = Sun
+  d.setDate(d.getDate() - day);
   return d;
 }
 function fmtLocalISO(date) {
@@ -35,22 +31,20 @@ function fmtLocalISO(date) {
   return `${y}-${m}-${d}`;
 }
 function parseDateInputLocal(yyyy_mm_dd) {
-  const [y,m,d] = yyyy_mm_dd.split('-').map(Number);
-  return new Date(y, (m||1)-1, d||1);
+  const [y,m,d] = (yyyy_mm_dd || '').split('-').map(Number);
+  return new Date(y || 1970, (m || 1) - 1, d || 1);
 }
 
 /* ===== Storage helpers ===== */
-function loadAll(){ try { return JSON.parse(localStorage.getItem(LS_KEY)) || {}; } catch { return {}; } }
-function saveAll(obj){ localStorage.setItem(LS_KEY, JSON.stringify(obj)); }
+function load(key){ try { return JSON.parse(localStorage.getItem(key)) || {}; } catch { return {}; } }
+function save(key, obj){ localStorage.setItem(key, JSON.stringify(obj)); }
 
-/* Back-compat: v1/v2 stored just the recipe id (string). Normalize to {id, s:1}. */
+/* ===== Planner helpers ===== */
 function normalizeCell(data) {
   if (!data) return { id:'', s:1 };
   if (typeof data === 'string') return { id: data, s: 1 };
-  // Defensive: ensure both fields exist
   return { id: data.id || '', s: typeof data.s === 'number' ? data.s : 1 };
 }
-
 function findRecipeById(id){ return recipes.find(r => r.id === id); }
 
 function optionsFor(type) {
@@ -68,9 +62,9 @@ function optionsFor(type) {
   return frag;
 }
 
-/* ===== Nutrition for one day (multiply by servings) ===== */
+/* ===== Nutrition per day (servings-aware) ===== */
 function computeDayTotals(weekStartISO, dayIndex) {
-  const all = loadAll();
+  const all = load(LS_PLAN);
   const week = all[weekStartISO] || {};
   let protein = 0, carbs = 0, fat = 0, calories = 0;
 
@@ -78,7 +72,7 @@ function computeDayTotals(weekStartISO, dayIndex) {
     const key = `${dayIndex}.${meal.key}`;
     const cell = normalizeCell(week[key]);
     const r = cell.id ? findRecipeById(cell.id) : null;
-    const s = Math.max(0, +cell.s || 0); // clamp to >=0
+    const s = Math.max(0, +cell.s || 0);
     if (r && r.nutrition && s > 0) {
       protein  += (r.nutrition.protein  || 0) * s;
       carbs    += (r.nutrition.carbs    || 0) * s;
@@ -112,12 +106,111 @@ function paintDaySummaryRow(weekStartISO, dayIndex) {
   `;
 }
 
+/* ===== Grocery aggregation (guarded for planner page) ===== */
+const CATEGORY_ORDER = ['Produce','Vegetables','Fruit','Meat','Seafood','Dairy','Bakery','Grains','Pantry','Spices','Frozen','Beverages','Other'];
+function normName(name){ return (name||'').toLowerCase().trim().replace(/\s+/g,' '); }
+
+function aggregateGrocery(weekStartISO) {
+  const plan = load(LS_PLAN)[weekStartISO] || {};
+  const totals = new Map();
+
+  for (let day = 0; day < 7; day++) {
+    for (const meal of MEALS) {
+      const key = `${day}.${meal.key}`;
+      const cell = normalizeCell(plan[key]);
+      const r = cell.id ? findRecipeById(cell.id) : null;
+      const servings = Math.max(0, +cell.s || 0);
+      if (!r || !r.ingredients || servings <= 0) continue;
+
+      const base = Math.max(1, +r.baseServings || 1);
+      const factor = servings / base;
+
+      r.ingredients.forEach(ing => {
+        const cat  = ing.category || 'Other';
+        const unit = (ing.unit || '').trim();
+        const nm   = normName(ing.name || '');
+        const qty  = (+ing.qty || 0) * factor;
+        const aggKey = `${cat}|${nm}|${unit}`;
+        if (!totals.has(aggKey)) totals.set(aggKey, { cat, name: ing.name, unit, qty: 0 });
+        totals.get(aggKey).qty += qty;
+      });
+    }
+  }
+
+  const grouped = {};
+  totals.forEach(item => {
+    if (!grouped[item.cat]) grouped[item.cat] = [];
+    grouped[item.cat].push(item);
+  });
+
+  const ordered = {};
+  CATEGORY_ORDER.forEach(c => { if (grouped[c]) ordered[c] = grouped[c]; });
+  Object.keys(grouped).forEach(c => { if (!(c in ordered)) ordered[c] = grouped[c]; });
+  Object.values(ordered).forEach(arr => arr.sort((a,b)=>normName(a.name).localeCompare(normName(b.name))));
+  return ordered;
+}
+
+function fmtQty(q){ return (Math.round(q * 100) / 100).toString(); }
+function groceryKey(cat, name, unit){ return `${cat}::${normName(name)}::${unit||''}`; }
+
+/* IMPORTANT GUARD: do nothing if grocery UI isn't on this page */
+function renderGrocery(weekStartISO) {
+  const container = document.getElementById('groceryBody');
+  if (!container) return; // Planner page has no grocery container — skip safely
+
+  container.innerHTML = '';
+  const data = aggregateGrocery(weekStartISO);
+  const checksAll = load(LS_GROC);
+  const weekChecks = checksAll[weekStartISO] || {};
+
+  Object.keys(data).forEach(cat => {
+    const section = document.createElement('section');
+    section.className = 'gsection';
+
+    const h = document.createElement('h3');
+    h.className = 'gtitle';
+    h.textContent = cat;
+    section.appendChild(h);
+
+    data[cat].forEach(item => {
+      const key = groceryKey(item.cat, item.name, item.unit);
+      const checked = !!weekChecks[key];
+      const qty = item.qty;
+      const zero = qty <= 0.0001;
+
+      const row = document.createElement('label');
+      row.className = 'gitem' + (zero ? ' gzero' : '');
+      row.innerHTML = `
+        <input type="checkbox" ${checked ? 'checked' : ''} aria-label="Mark ${item.name} as purchased">
+        <span class="glbl">
+          <span class="gqty">${fmtQty(qty)}</span>
+          ${item.unit ? `<span class="gunit">${item.unit}</span>` : ''}
+          <span class="gname">${item.name}</span>
+        </span>
+      `;
+
+      const cb = row.querySelector('input');
+      cb.addEventListener('change', () => {
+        const all = load(LS_GROC);
+        all[weekStartISO] = all[weekStartISO] || {};
+        all[weekStartISO][key] = cb.checked;
+        save(LS_GROC, all);
+      });
+
+      section.appendChild(row);
+    });
+
+    container.appendChild(section);
+  });
+}
+
 /* ===== Build planner (main row + summary row per day) ===== */
 function buildPlannerTable(weekStartISO) {
   const tbody = document.getElementById('plannerBody');
+  if (!tbody) return;
   tbody.innerHTML = '';
-  const data = loadAll();
-  const weekData = data[weekStartISO] || {};
+  const all = load(LS_PLAN);
+  const weekData = all[weekStartISO] || {};
 
   for (let i = 0; i < 7; i++) {
     // Main day row
@@ -172,30 +265,29 @@ function buildPlannerTable(weekStartISO) {
       paintMeta();
 
       function saveCell() {
-        const all = loadAll();
+        const all = load(LS_PLAN);
         const wk = all[weekStartISO] || {};
         const sVal = Math.max(0, +servingsInput.value || 0);
         wk[key] = { id: sel.value, s: sVal };
         all[weekStartISO] = wk;
-        saveAll(all);
+        save(LS_PLAN, all);
       }
 
       sel.addEventListener('change', () => {
         saveCell();
         paintMeta();
         paintDaySummaryRow(weekStartISO, i);
+        renderGrocery(weekStartISO); // safe: no-op on planner page
       });
 
-      // Update on change and on Enter
       const onServingsChange = () => {
-        // normalize value
         let v = parseFloat(servingsInput.value);
-        if (isNaN(v)) v = 0;
-        if (v < 0) v = 0;
+        if (isNaN(v) || v < 0) v = 0;
         servingsInput.value = v;
         saveCell();
         paintMeta();
         paintDaySummaryRow(weekStartISO, i);
+        renderGrocery(weekStartISO);
       };
       servingsInput.addEventListener('change', onServingsChange);
       servingsInput.addEventListener('keyup', e => { if (e.key === 'Enter') onServingsChange(); });
@@ -215,20 +307,30 @@ function buildPlannerTable(weekStartISO) {
     trSum.id = `nutri-${i}`;
     tbody.appendChild(trSum);
 
-    // Initial paint for this day's totals
     paintDaySummaryRow(weekStartISO, i);
   }
+
+  // Safe on planner; renders only if grocery UI exists (e.g., grocery.html)
+  renderGrocery(weekStartISO);
 }
 
 /* ===== Week controls ===== */
 function setWeek(date) {
-  const start = startOfWeekLocal(date);
-  const iso = fmtLocalISO(start);
-  const weekOf = document.getElementById('weekOf');
-  weekOf.value = iso;
-  buildPlannerTable(iso);
+  try {
+    const start = startOfWeekLocal(date);
+    const iso = fmtLocalISO(start);
+    CURRENT_ISO = iso;
+
+    const weekOf = document.getElementById('weekOf');
+    if (weekOf) weekOf.value = iso;
+
+    buildPlannerTable(iso);
+  } catch (e) {
+    console.error('setWeek failed:', e);
+  }
 }
 
+/* ===== Init ===== */
 document.addEventListener('DOMContentLoaded', () => {
   const weekOf   = document.getElementById('weekOf');
   const prevWeek = document.getElementById('prevWeek');
@@ -236,36 +338,42 @@ document.addEventListener('DOMContentLoaded', () => {
   const printBtn = document.getElementById('printBtn');
   const clearBtn = document.getElementById('clearBtn');
 
-  // init to current week (local)
+  // 1) Wire listeners FIRST
+  if (weekOf) {
+    weekOf.addEventListener('change', () => {
+      const picked = parseDateInputLocal(weekOf.value);
+      setWeek(picked);
+    });
+  }
+  if (prevWeek) {
+    prevWeek.addEventListener('click', () => {
+      const base = CURRENT_ISO ? parseDateInputLocal(CURRENT_ISO) : new Date();
+      base.setDate(base.getDate() - 7);
+      setWeek(base);
+    });
+  }
+  if (nextWeek) {
+    nextWeek.addEventListener('click', () => {
+      const base = CURRENT_ISO ? parseDateInputLocal(CURRENT_ISO) : new Date();
+      base.setDate(base.getDate() + 7);
+      setWeek(base);
+    });
+  }
+  if (printBtn) {
+    printBtn.addEventListener('click', () => window.print());
+  }
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      if (!CURRENT_ISO) return;
+      if (!confirm('Clear all selections for this week?')) return;
+      const plan = load(LS_PLAN);
+      if (plan[CURRENT_ISO]) { delete plan[CURRENT_ISO]; save(LS_PLAN, plan); }
+      const groc = load(LS_GROC);
+      if (groc[CURRENT_ISO]) { delete groc[CURRENT_ISO]; save(LS_GROC, groc); }
+      setWeek(parseDateInputLocal(CURRENT_ISO)); // rebuild clean
+    });
+  }
+
+  // 2) Then render the current week
   setWeek(new Date());
-
-  weekOf.addEventListener('change', () => {
-    const picked = parseDateInputLocal(weekOf.value);
-    setWeek(picked);
-  });
-
-  prevWeek.addEventListener('click', () => {
-    const base = parseDateInputLocal(weekOf.value);
-    base.setDate(base.getDate() - 7);
-    setWeek(base);
-  });
-
-  nextWeek.addEventListener('click', () => {
-    const base = parseDateInputLocal(weekOf.value);
-    base.setDate(base.getDate() + 7);
-    setWeek(base);
-  });
-
-  printBtn.addEventListener('click', () => window.print());
-
-  clearBtn.addEventListener('click', () => {
-    if (!confirm('Clear all selections for this week?')) return;
-    const data = loadAll();
-    const iso = weekOf.value;
-    if (data[iso]) {
-      delete data[iso];
-      saveAll(data);
-      buildPlannerTable(iso);
-    }
-  });
 });
