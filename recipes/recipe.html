@@ -23,23 +23,23 @@
       overflow:hidden;
     }
     .recipe-media{
-      margin:0;               /* remove default figure spacing */
+      margin:0;
       width:100%;
       height:auto;
-      align-self:start;       /* keep image column natural height */
+      align-self:start;
       display:block;
       background:#f3f4f6;
       overflow:hidden;
     }
     .recipe-media img{
       display:block;
-      width:100%;             /* fill column horizontally */
-      height:auto;            /* maintain aspect ratio */
-      object-fit:contain;     /* ensure no cropping */
+      width:100%;
+      height:auto;
+      object-fit:contain; /* no cropping */
     }
     .recipe-body{
       padding:1rem;
-      min-width:0;            /* prevent text overlap */
+      min-width:0; /* prevent text overlap */
     }
     .recipe-header{ display:flex; align-items:center; gap:.75rem; flex-wrap:wrap; }
     .recipe-header h1{ margin:.25rem 0; font-size:1.8rem; }
@@ -63,6 +63,8 @@
     }
   </style>
 
+  <!-- Load databases first -->
+  <script src="../ingredients-db.js"></script>
   <script src="../recipes.js"></script>
 </head>
 <body>
@@ -113,6 +115,80 @@
     </section>
   </main>
 
+  <!-- Nutrition helpers + calculator -->
+  <script>
+    function toMl(q, unit){
+      const u = (unit||'').toLowerCase().trim();
+      if (u === 'tsp' || u === 'teaspoon' || u === 'teaspoons') return q * 4.9289215938;
+      if (u === 'tbsp' || u === 'tablespoon' || u === 'tablespoons') return q * 14.786764781;
+      if (u === 'fl oz' || u === 'floz' || u === 'fluid ounce' || u === 'fluid ounces') return q * 29.573529562;
+      if (u === 'cup' || u === 'cups') return q * 236.5882365;
+      if (u === 'ml' || u === 'milliliter' || u === 'milliliters') return q;
+      if (u === 'l' || u === 'liter' || u === 'liters') return q * 1000;
+      return null;
+    }
+    function toGramsFromMass(q, unit){
+      const u = (unit||'').toLowerCase().trim();
+      if (u === 'g' || u === 'gram' || u === 'grams') return q;
+      if (u === 'kg' || u === 'kilogram' || u === 'kilograms') return q * 1000;
+      if (u === 'oz' || u === 'ounce' || u === 'ounces') return q * 28.349523125;
+      if (u === 'lb' || u === 'lbs' || u === 'pound' || u === 'pounds') return q * 453.59237;
+      return null;
+    }
+    function toGramsFromCount(q, unit, ingMeta){
+      const u = (unit||'').toLowerCase().trim();
+      const per = ingMeta && ingMeta.weight_g_per_pc ? ingMeta.weight_g_per_pc : null;
+      if (!per) return null;
+      if (['pc','piece','pieces','slice','slices','clove','cloves','ball','balls'].includes(u) || u === '') {
+        return q * per;
+      }
+      return null;
+    }
+    function gramsFor(ing){
+      const key  = (ing.name||'').toLowerCase().trim();
+      const meta = (window.__INGREDIENTS || {})[key];
+      const qty  = +ing.qty || 0;
+      const unit = (ing.unit||'').trim();
+
+      if (!meta) { console.warn('No ingredient meta for:', ing.name); return 0; }
+
+      let g = toGramsFromMass(qty, unit);
+      if (g !== null) return g;
+
+      const ml = toMl(qty, unit);
+      if (ml !== null) {
+        if (typeof meta.density_g_per_ml === 'number') return ml * meta.density_g_per_ml;
+        console.warn('No density for volume unit on:', ing.name);
+        return 0;
+      }
+
+      const gp = toGramsFromCount(qty, unit, meta);
+      if (gp !== null) return gp;
+
+      console.warn('Unrecognized unit for:', ing.name, 'unit=', unit);
+      return 0;
+    }
+    function computeNutrition(ingredients, factor){
+      let totG = 0, p=0, c=0, f=0, kcal=0;
+      (ingredients||[]).forEach(ing => {
+        const grams = gramsFor(ing) * (factor || 1);
+        if (grams <= 0) return;
+        const meta = (window.__INGREDIENTS || {})[(ing.name||'').toLowerCase().trim()];
+        const per100 = meta && meta.per100g ? meta.per100g : null;
+        if (!per100) return;
+
+        const scale = grams / 100;
+        p   += (per100.protein || 0) * scale;
+        c   += (per100.carbs   || 0) * scale;
+        f   += (per100.fat     || 0) * scale;
+        kcal+= (per100.cal     || 0) * scale;
+        totG+= grams;
+      });
+      return { protein:p, carbs:c, fat:f, calories:kcal, weight_g:totG };
+    }
+  </script>
+
+  <!-- Main page logic (this was missing <script> before) -->
   <script>
     (function(){
       const params = new URLSearchParams(location.search);
@@ -166,17 +242,14 @@
           ingEl.appendChild(li);
         });
 
-        // Nutrition
-        const n = r.nutrition || {};
-        const protein  = ((+n.protein  || 0) * s).toFixed(1);
-        const carbs    = ((+n.carbs    || 0) * s).toFixed(1);
-        const fat      = ((+n.fat      || 0) * s).toFixed(1);
-        const calories = Math.round((+n.calories || 0) * s);
+        // Dynamic nutrition calc:
+        const totals = computeNutrition(r.ingredients, factor);
         nutEl.innerHTML = `
-          <span class="chip"><strong>P</strong> ${protein} g</span>
-          <span class="chip"><strong>C</strong> ${carbs} g</span>
-          <span class="chip"><strong>F</strong> ${fat} g</span>
-          <span class="chip"><strong>kcal</strong> ${calories}</span>
+          <span class="chip"><strong>P</strong> ${totals.protein.toFixed(1)} g</span>
+          <span class="chip"><strong>C</strong> ${totals.carbs.toFixed(1)} g</span>
+          <span class="chip"><strong>F</strong> ${totals.fat.toFixed(1)} g</span>
+          <span class="chip"><strong>kcal</strong> ${Math.round(totals.calories)}</span>
+          <span class="chip" title="approx total finished mass"><strong>wt</strong> ${Math.round(totals.weight_g)} g</span>
         `;
 
         // Directions

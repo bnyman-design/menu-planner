@@ -347,7 +347,7 @@ window.__RECIPES = [
   baseServings: 2,
   ingredients: [
     { name: 'Green lentils', qty: 0.5, unit: 'cup', category: 'Legumes' },
-    { name: 'Carrot', qty: 1, unit: 'pc', category: 'Produce' },
+    { name: 'Carrots', qty: 1, unit: 'pc', category: 'Produce' },
     { name: 'Celery', qty: 1, unit: 'pc', category: 'Produce' },
     { name: 'Onion', qty: 0.5, unit: 'pc', category: 'Produce' },
     { name: 'Vegetable broth', qty: 3, unit: 'cup', category: 'Pantry' },
@@ -411,7 +411,7 @@ window.__RECIPES = [
     { name: 'Sushi rice', qty: 1, unit: 'cup', category: 'Grains' },
     { name: 'Nori sheets', qty: 2, unit: 'pc', category: 'Pantry' },
     { name: 'Cucumber', qty: 0.25, unit: 'cup', category: 'Produce' },
-    { name: 'Carrot', qty: 0.25, unit: 'cup', category: 'Produce' },
+    { name: 'Carrots', qty: 0.25, unit: 'cup', category: 'Produce' },
     { name: 'Avocado', qty: 0.25, unit: 'pc', category: 'Produce' }
   ],
   directions: [
