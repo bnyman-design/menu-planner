@@ -11,11 +11,11 @@ window.__RECIPES = [
       { name: 'Eggs', qty: 2, unit: 'pc', category: 'Dairy' },
       { name: 'Cottage cheese', qty: 0.5, unit: 'cup', category: 'Dairy' },
       { name: 'Spinach', qty: 1, unit: 'cup', category: 'Produce' },
-      { name: 'Bell pepper (diced)', qty: 0.5, unit: 'cup', category: 'Produce' }
+      { name: 'Bell pepper', qty: 0.5, unit: 'cup', category: 'Produce' }
     ],
     directions: [
       'Whisk eggs with a pinch of salt and pepper.',
-      'Sauté bell pepper until slightly tender; add spinach to wilt.',
+      'Dice and sauté bell pepper until slightly tender; add spinach to wilt.',
       'Add eggs and scramble gently until almost set.',
       'Fold in cottage cheese and cook 30–60 seconds until creamy.'
     ]
@@ -29,9 +29,9 @@ window.__RECIPES = [
     baseServings: 1,
     ingredients: [
       { name: 'Rolled oats', qty: 0.5, unit: 'cup', category: 'Grains' },
-      { name: 'Protein powder (whey or plant)', qty: 1, unit: 'scoop', category: 'Supplements' },
+      { name: 'Protein powder', qty: 1, unit: 'scoop', category: 'Supplements' },
       { name: 'Peanut butter', qty: 1, unit: 'tbsp', category: 'Nuts' },
-      { name: 'Banana (sliced)', qty: 0.5, unit: 'pc', category: 'Produce' }
+      { name: 'Banana', qty: 0.5, unit: 'pc', category: 'Produce' }
     ],
     directions: [
       'Cook oats with water or milk per package directions.',
@@ -69,9 +69,9 @@ window.__RECIPES = [
     baseServings: 1,
     ingredients: [
       { name: 'Egg whites', qty: 0.75, unit: 'cup', category: 'Dairy' },
-      { name: 'Turkey sausage (crumbled)', qty: 2, unit: 'oz', category: 'Meat' },
-      { name: 'Black beans (rinsed)', qty: 0.25, unit: 'cup', category: 'Legumes' },
-      { name: 'Cheddar (shredded)', qty: 2, unit: 'tbsp', category: 'Dairy' },
+      { name: 'Turkey sausage', qty: 2, unit: 'oz', category: 'Meat' },
+      { name: 'Black beans', qty: 0.25, unit: 'cup', category: 'Legumes' },
+      { name: 'Cheddar Cheese', qty: 2, unit: 'tbsp', category: 'Dairy' },
       { name: 'Whole wheat tortilla', qty: 1, unit: 'pc', category: 'Bakery' }
     ],
     directions: [
@@ -89,13 +89,14 @@ window.__RECIPES = [
     nutrition: { protein: 27, carbs: 40, fat: 11, calories: 370 },
     baseServings: 1,
     ingredients: [
-      { name: 'Cooked quinoa (warm)', qty: 0.5, unit: 'cup', category: 'Grains' },
+      { name: 'Quinoa', qty: 0.5, unit: 'cup', category: 'Grains' },
       { name: 'Greek yogurt', qty: 0.5, unit: 'cup', category: 'Dairy' },
       { name: 'Blueberries', qty: 0.25, unit: 'cup', category: 'Produce' },
-      { name: 'Almonds (chopped)', qty: 2, unit: 'tbsp', category: 'Nuts' },
+      { name: 'Almonds', qty: 2, unit: 'tbsp', category: 'Nuts' },
       { name: 'Almond butter', qty: 1, unit: 'tsp', category: 'Nuts' }
     ],
     directions: [
+      'Cook quinoa according to package instructions; let cool slightly.',
       'Spoon warm quinoa into a bowl.',
       'Top with Greek yogurt.',
       'Add blueberries and chopped almonds.',
@@ -132,13 +133,13 @@ window.__RECIPES = [
     baseServings: 1,
     ingredients: [
       { name: 'Eggs', qty: 2, unit: 'pc', category: 'Dairy' },
-      { name: 'Chickpeas (cooked)', qty: 0.5, unit: 'cup', category: 'Legumes' },
+      { name: 'Chickpeas', qty: 0.5, unit: 'cup', category: 'Legumes' },
       { name: 'Tomato sauce', qty: 0.5, unit: 'cup', category: 'Pantry' },
-      { name: 'Onion (diced)', qty: 0.25, unit: 'pc', category: 'Produce' },
-      { name: 'Feta cheese (crumbled)', qty: 2, unit: 'tbsp', category: 'Dairy' }
+      { name: 'Onion', qty: 0.25, unit: 'pc', category: 'Produce' },
+      { name: 'Feta cheese', qty: 2, unit: 'tbsp', category: 'Dairy' }
     ],
     directions: [
-      'Sauté onion in a skillet until translucent.',
+      'Dice and sauté onion in a skillet until translucent.',
       'Add tomato sauce and chickpeas; simmer 3–4 minutes.',
       'Make wells and crack in eggs; cover and cook to desired doneness.',
       'Top with feta and herbs; serve with crusty bread.'
@@ -156,7 +157,7 @@ window.__RECIPES = [
       { name: 'Eggs', qty: 2, unit: 'pc', category: 'Dairy' },
       { name: 'Spinach', qty: 1, unit: 'cup', category: 'Produce' },
       { name: 'Salsa', qty: 0.25, unit: 'cup', category: 'Pantry' },
-      { name: 'Avocado (sliced)', qty: 0.25, unit: 'pc', category: 'Produce' }
+      { name: 'Avocado', qty: 0.25, unit: 'pc', category: 'Produce' }
     ],
     directions: [
       'Brown turkey with salt, pepper, and your favorite spices.',
@@ -194,7 +195,7 @@ window.__RECIPES = [
     nutrition: { protein: 25, carbs: 35, fat: 10, calories: 320 },
     baseServings: 1,
     ingredients: [
-      { name: 'Greek yogurt (plain, nonfat)', qty: 1, unit: 'cup', category: 'Dairy' },
+      { name: 'Fat Free Greek yogurt', qty: 1, unit: 'cup', category: 'Dairy' },
       { name: 'Mixed berries', qty: 0.5, unit: 'cup', category: 'Produce' },
       { name: 'Almonds or walnuts', qty: 2, unit: 'tbsp', category: 'Nuts' },
       { name: 'Honey', qty: 1, unit: 'tsp', category: 'Pantry' }
@@ -209,31 +210,6 @@ window.__RECIPES = [
 
   /* === Other meals (unchanged nutrition/ingredients, now with directions) === */
   {
-    id: 'lemon-chicken',
-    title: 'Lemon Garlic Chicken',
-    type: 'dinner',
-    url: 'recipes/recipe.html?id=lemon-chicken',
-    nutrition: { protein: 35, carbs: 28, fat: 18, calories: 450 },
-    baseServings: 4,
-    ingredients: [
-      { name: 'chicken thighs (bone-in, skin-on)', qty: 1.5, unit: 'lb', category: 'Meat' },
-      { name: 'baby potatoes', qty: 1, unit: 'lb', category: 'Vegetables' },
-      { name: 'garlic (minced)', qty: 3, unit: 'clove', category: 'Spices' },
-      { name: 'olive oil', qty: 2, unit: 'tbsp', category: 'Pantry' },
-      { name: 'lemon', qty: 1, unit: 'pc', category: 'Produce' },
-      { name: 'kosher salt', qty: 1, unit: 'tsp', category: 'Spices' },
-      { name: 'black pepper', qty: 0.5, unit: 'tsp', category: 'Spices' },
-      { name: 'parsley (fresh, chopped)', qty: 1, unit: 'tbsp', category: 'Produce' }
-    ],
-    directions: [
-      'Preheat oven to 425°F (220°C).',
-      'Toss potatoes with half the oil, salt, and pepper; spread on a sheet pan.',
-      'Season chicken with remaining oil, salt, pepper, minced garlic, and lemon zest.',
-      'Nestle chicken among potatoes; roast 35–45 minutes until chicken is crisp and cooked through.',
-      'Squeeze lemon juice over top, sprinkle parsley, and serve.'
-    ]
-  },
-  {
     id: 'avocado-toast',
     title: 'Avocado Toast',
     type: 'breakfast',
@@ -241,11 +217,11 @@ window.__RECIPES = [
     nutrition: { protein: 7, carbs: 22, fat: 12, calories: 250 },
     baseServings: 2,
     ingredients: [
-      { name: 'bread', qty: 2, unit: 'slice', category: 'Bakery' },
-      { name: 'avocado', qty: 1, unit: 'pc', category: 'Produce' },
-      { name: 'olive oil', qty: 1, unit: 'tsp', category: 'Pantry' },
-      { name: 'salt', qty: 0.25, unit: 'tsp', category: 'Spices' },
-      { name: 'pepper', qty: 0.25, unit: 'tsp', category: 'Spices' }
+      { name: 'Bread', qty: 2, unit: 'slice', category: 'Bakery' },
+      { name: 'Avocado', qty: 1, unit: 'pc', category: 'Produce' },
+      { name: 'Olive oil', qty: 1, unit: 'tsp', category: 'Pantry' },
+      { name: 'Salt', qty: 0.25, unit: 'tsp', category: 'Spices' },
+      { name: 'Pepper', qty: 0.25, unit: 'tsp', category: 'Spices' }
     ],
     directions: [
       'Toast the bread.',
@@ -262,12 +238,12 @@ window.__RECIPES = [
     nutrition: { protein: 14, carbs: 45, fat: 10, calories: 360 },
     baseServings: 2,
     ingredients: [
-      { name: 'quinoa (dry)', qty: 1, unit: 'cup', category: 'Grains' },
-      { name: 'cherry tomatoes (halved)', qty: 1, unit: 'cup', category: 'Produce' },
-      { name: 'spinach', qty: 2, unit: 'cup', category: 'Produce' },
-      { name: 'feta (crumbled)', qty: 0.5, unit: 'cup', category: 'Dairy' },
-      { name: 'olive oil', qty: 1, unit: 'tbsp', category: 'Pantry' },
-      { name: 'salt', qty: 0.5, unit: 'tsp', category: 'Spices' }
+      { name: 'Quinoa', qty: 1, unit: 'cup', category: 'Grains' },
+      { name: 'Cherry tomatoes', qty: 1, unit: 'cup', category: 'Produce' },
+      { name: 'Spinach', qty: 2, unit: 'cup', category: 'Produce' },
+      { name: 'Feta Cheese', qty: 0.5, unit: 'cup', category: 'Dairy' },
+      { name: 'Olive oil', qty: 1, unit: 'tbsp', category: 'Pantry' },
+      { name: 'Salt', qty: 0.5, unit: 'tsp', category: 'Spices' }
     ],
     directions: [
       'Cook quinoa according to package directions; fluff and cool slightly.',
@@ -284,11 +260,11 @@ window.__RECIPES = [
     nutrition: { protein: 5, carbs: 30, fat: 8, calories: 220 },
     baseServings: 4,
     ingredients: [
-      { name: 'baguette', qty: 1, unit: 'pc', category: 'Bakery' },
-      { name: 'butter (softened)', qty: 4, unit: 'tbsp', category: 'Dairy' },
-      { name: 'garlic (minced)', qty: 2, unit: 'clove', category: 'Spices' },
-      { name: 'parsley (chopped)', qty: 1, unit: 'tbsp', category: 'Produce' },
-      { name: 'salt', qty: 0.25, unit: 'tsp', category: 'Spices' }
+      { name: 'Baguette', qty: 1, unit: 'pc', category: 'Bakery' },
+      { name: 'Butter', qty: 4, unit: 'tbsp', category: 'Dairy' },
+      { name: 'Garlic', qty: 2, unit: 'clove', category: 'Spices' },
+      { name: 'Parsley', qty: 1, unit: 'tbsp', category: 'Produce' },
+      { name: 'Salt', qty: 0.25, unit: 'tsp', category: 'Spices' }
     ],
     directions: [
       'Preheat oven to 400°F (205°C).',
@@ -307,10 +283,10 @@ window.__RECIPES = [
   ingredients: [
     { name: 'Whole wheat pita', qty: 1, unit: 'pc', category: 'Bakery' },
     { name: 'Hummus', qty: 3, unit: 'tbsp', category: 'Dips' },
-    { name: 'Cucumber (sliced)', qty: 0.25, unit: 'cup', category: 'Produce' },
-    { name: 'Tomato (sliced)', qty: 0.25, unit: 'cup', category: 'Produce' },
-    { name: 'Feta cheese (crumbled)', qty: 2, unit: 'tbsp', category: 'Dairy' },
-    { name: 'Spinach leaves', qty: 0.5, unit: 'cup', category: 'Produce' }
+    { name: 'Cucumber', qty: 0.25, unit: 'cup', category: 'Produce' },
+    { name: 'Tomato', qty: 0.25, unit: 'cup', category: 'Produce' },
+    { name: 'Feta Cheese', qty: 2, unit: 'tbsp', category: 'Dairy' },
+    { name: 'Spinach', qty: 0.5, unit: 'cup', category: 'Produce' }
   ],
   directions: [
     'Warm pita lightly and slice in half.',
@@ -329,10 +305,10 @@ window.__RECIPES = [
   ingredients: [
     { name: 'Whole wheat tortilla', qty: 1, unit: 'pc', category: 'Bakery' },
     { name: 'Turkey breast slices', qty: 3, unit: 'oz', category: 'Meat' },
-    { name: 'Avocado (sliced)', qty: 0.25, unit: 'pc', category: 'Produce' },
+    { name: 'Avocado', qty: 0.25, unit: 'pc', category: 'Produce' },
     { name: 'Lettuce', qty: 0.5, unit: 'cup', category: 'Produce' },
-    { name: 'Tomato (sliced)', qty: 0.25, unit: 'cup', category: 'Produce' },
-    { name: 'Greek yogurt (as spread)', qty: 2, unit: 'tbsp', category: 'Dairy' }
+    { name: 'Tomato', qty: 0.25, unit: 'cup', category: 'Produce' },
+    { name: 'Greek yogurt', qty: 2, unit: 'tbsp', category: 'Dairy' }
   ],
   directions: [
     'Lay tortilla flat and spread with Greek yogurt.',
@@ -348,12 +324,13 @@ window.__RECIPES = [
   nutrition: { protein: 12, carbs: 22, fat: 15, calories: 290 },
   baseServings: 1,
   ingredients: [
-    { name: 'Romaine lettuce (chopped)', qty: 2, unit: 'cup', category: 'Produce' },
-    { name: 'Cucumber (diced)', qty: 0.5, unit: 'cup', category: 'Produce' },
-    { name: 'Cherry tomatoes (halved)', qty: 0.5, unit: 'cup', category: 'Produce' },
-    { name: 'Kalamata olives (sliced)', qty: 0.25, unit: 'cup', category: 'Produce' },
+    { name: 'Romaine lettuce', qty: 2, unit: 'cup', category: 'Produce' },
+    { name: 'Cucumber', qty: 0.5, unit: 'cup', category: 'Produce' },
+    { name: 'Cherry tomatoes', qty: 0.5, unit: 'cup', category: 'Produce' },
+    { name: 'Kalamata olives', qty: 0.25, unit: 'cup', category: 'Produce' },
     { name: 'Feta cheese', qty: 2, unit: 'tbsp', category: 'Dairy' },
-    { name: 'Olive oil & lemon juice dressing', qty: 2, unit: 'tbsp', category: 'Pantry' }
+    { name: 'Olive oil', qty: 1, unit: 'tbsp', category: 'Pantry' },
+    { name: 'Lemon juice', qty: 1, unit: 'tbsp', category: 'Pantry' }
   ],
   directions: [
     'Combine lettuce, cucumber, tomatoes, and olives in a bowl.',
@@ -369,10 +346,10 @@ window.__RECIPES = [
   nutrition: { protein: 18, carbs: 40, fat: 8, calories: 320 },
   baseServings: 2,
   ingredients: [
-    { name: 'Green lentils (dry)', qty: 0.5, unit: 'cup', category: 'Legumes' },
-    { name: 'Carrot (diced)', qty: 1, unit: 'pc', category: 'Produce' },
-    { name: 'Celery (diced)', qty: 1, unit: 'pc', category: 'Produce' },
-    { name: 'Onion (chopped)', qty: 0.5, unit: 'pc', category: 'Produce' },
+    { name: 'Green lentils', qty: 0.5, unit: 'cup', category: 'Legumes' },
+    { name: 'Carrot', qty: 1, unit: 'pc', category: 'Produce' },
+    { name: 'Celery', qty: 1, unit: 'pc', category: 'Produce' },
+    { name: 'Onion', qty: 0.5, unit: 'pc', category: 'Produce' },
     { name: 'Vegetable broth', qty: 3, unit: 'cup', category: 'Pantry' },
     { name: 'Olive oil', qty: 1, unit: 'tbsp', category: 'Pantry' }
   ],
@@ -395,7 +372,7 @@ window.__RECIPES = [
     { name: 'Hummus', qty: 0.25, unit: 'cup', category: 'Dips' },
     { name: 'Pita bread', qty: 1, unit: 'pc', category: 'Bakery' },
     { name: 'Mixed greens', qty: 1, unit: 'cup', category: 'Produce' },
-    { name: 'Cucumber (sliced)', qty: 0.25, unit: 'cup', category: 'Produce' }
+    { name: 'Cucumber', qty: 0.25, unit: 'cup', category: 'Produce' }
   ],
   directions: [
     'Arrange falafel, hummus, pita, and vegetables on a plate.',
@@ -414,7 +391,7 @@ window.__RECIPES = [
     { name: 'Whole wheat tortilla', qty: 1, unit: 'pc', category: 'Bakery' },
     { name: 'Cooked chicken breast (sliced)', qty: 3, unit: 'oz', category: 'Meat' },
     { name: 'Romaine lettuce', qty: 1, unit: 'cup', category: 'Produce' },
-    { name: 'Parmesan cheese (grated)', qty: 1, unit: 'tbsp', category: 'Dairy' },
+    { name: 'Parmesan cheese', qty: 1, unit: 'tbsp', category: 'Dairy' },
     { name: 'Caesar dressing', qty: 2, unit: 'tbsp', category: 'Dips' }
   ],
   directions: [
@@ -431,13 +408,16 @@ window.__RECIPES = [
   nutrition: { protein: 8, carbs: 50, fat: 5, calories: 280 },
   baseServings: 2,
   ingredients: [
-    { name: 'Sushi rice (cooked)', qty: 1, unit: 'cup', category: 'Grains' },
+    { name: 'Sushi rice', qty: 1, unit: 'cup', category: 'Grains' },
     { name: 'Nori sheets', qty: 2, unit: 'pc', category: 'Pantry' },
-    { name: 'Cucumber (julienned)', qty: 0.25, unit: 'cup', category: 'Produce' },
-    { name: 'Carrot (julienned)', qty: 0.25, unit: 'cup', category: 'Produce' },
-    { name: 'Avocado (sliced)', qty: 0.25, unit: 'pc', category: 'Produce' }
+    { name: 'Cucumber', qty: 0.25, unit: 'cup', category: 'Produce' },
+    { name: 'Carrot', qty: 0.25, unit: 'cup', category: 'Produce' },
+    { name: 'Avocado', qty: 0.25, unit: 'pc', category: 'Produce' }
   ],
   directions: [
+    'Rinse sushi rice under cold water until water runs clear.',
+    'Cook rice according to package instructions; let cool slightly.',
+    'Jullienne cucumber, carrot, and avocado.',
     'Place nori sheet shiny side down on bamboo mat.',
     'Spread a thin layer of sushi rice, leaving 1 inch border.',
     'Arrange cucumber, carrot, and avocado in a line.',
@@ -453,12 +433,14 @@ window.__RECIPES = [
   baseServings: 1,
   ingredients: [
     { name: 'Ciabatta roll', qty: 1, unit: 'pc', category: 'Bakery' },
-    { name: 'Fresh mozzarella (sliced)', qty: 2, unit: 'oz', category: 'Dairy' },
-    { name: 'Tomato (sliced)', qty: 0.25, unit: 'cup', category: 'Produce' },
+    { name: 'Fresh mozzarella', qty: 2, unit: 'oz', category: 'Dairy' },
+    { name: 'Tomato', qty: 0.25, unit: 'cup', category: 'Produce' },
     { name: 'Fresh basil leaves', qty: 4, unit: 'pc', category: 'Produce' },
     { name: 'Balsamic glaze', qty: 1, unit: 'tbsp', category: 'Pantry' }
   ],
   directions: [
+    'Slice mozzarella.',
+    'Chop tomato and basil leaves.',
     'Slice ciabatta and layer mozzarella, tomato, and basil.',
     'Drizzle with balsamic glaze.',
     'Close sandwich and serve.'
@@ -472,13 +454,14 @@ window.__RECIPES = [
   nutrition: { protein: 20, carbs: 55, fat: 10, calories: 420 },
   baseServings: 1,
   ingredients: [
-    { name: 'Brown rice (cooked)', qty: 1, unit: 'cup', category: 'Grains' },
-    { name: 'Black beans (cooked)', qty: 0.5, unit: 'cup', category: 'Legumes' },
+    { name: 'Brown rice', qty: 1, unit: 'cup', category: 'Grains' },
+    { name: 'Black beans', qty: 0.5, unit: 'cup', category: 'Legumes' },
     { name: 'Salsa', qty: 0.25, unit: 'cup', category: 'Pantry' },
-    { name: 'Corn (cooked)', qty: 0.25, unit: 'cup', category: 'Vegetables' },
-    { name: 'Avocado (sliced)', qty: 0.25, unit: 'pc', category: 'Produce' }
+    { name: 'Corn', qty: 0.25, unit: 'cup', category: 'Vegetables' },
+    { name: 'Avocado', qty: 0.25, unit: 'pc', category: 'Produce' }
   ],
   directions: [
+    'Cook brown rice according to package instructions.',
     'Layer rice in a bowl, then top with beans, corn, salsa, and avocado.',
     'Serve warm or at room temperature.'
   ]
@@ -495,12 +478,13 @@ window.__RECIPES = [
     { name: 'Ground beef (lean)', qty: 0.5, unit: 'lb', category: 'Meat' },
     { name: 'Spaghetti', qty: 6, unit: 'oz', category: 'Grains' },
     { name: 'Marinara sauce', qty: 2, unit: 'cup', category: 'Pantry' },
-    { name: 'Parmesan cheese (grated)', qty: 2, unit: 'tbsp', category: 'Dairy' }
+    { name: 'Parmesan cheese', qty: 2, unit: 'tbsp', category: 'Dairy' }
   ],
   directions: [
     'Cook spaghetti per package instructions.',
     'Brown beef in a skillet, drain excess fat.',
     'Add marinara sauce and simmer 10 minutes.',
+    'Add spices and garlic powder to taste.',
     'Serve beef sauce over spaghetti, top with Parmesan.'
   ]
 },
@@ -514,12 +498,14 @@ window.__RECIPES = [
   ingredients: [
     { name: 'Ground beef', qty: 0.5, unit: 'lb', category: 'Meat' },
     { name: 'Egg noodles', qty: 6, unit: 'oz', category: 'Grains' },
-    { name: 'Mushrooms (sliced)', qty: 1, unit: 'cup', category: 'Produce' },
+    { name: 'Mushrooms', qty: 1, unit: 'cup', category: 'Produce' },
     { name: 'Sour cream', qty: 0.5, unit: 'cup', category: 'Dairy' },
-    { name: 'Onion (diced)', qty: 0.5, unit: 'pc', category: 'Produce' }
+    { name: 'Onion', qty: 0.5, unit: 'pc', category: 'Produce' }
   ],
   directions: [
     'Cook noodles per package instructions.',
+    'Slice mushrooms.',
+    'Dice onion.',
     'Sauté onion and mushrooms, then brown beef.',
     'Stir in sour cream and seasonings.',
     'Serve over noodles.'
@@ -533,14 +519,16 @@ window.__RECIPES = [
   nutrition: { protein: 38, carbs: 45, fat: 16, calories: 540 },
   baseServings: 4,
   ingredients: [
-    { name: 'Ground beef', qty: 1, unit: 'lb', category: 'Meat' },
-    { name: 'Kidney beans (cooked)', qty: 2, unit: 'cup', category: 'Legumes' },
+    { name: 'Ground beef (lean)', qty: 1, unit: 'lb', category: 'Meat' },
+    { name: 'Kidney beans', qty: 2, unit: 'cup', category: 'Legumes' },
     { name: 'Tomato sauce', qty: 2, unit: 'cup', category: 'Pantry' },
     { name: 'Chili powder', qty: 2, unit: 'tbsp', category: 'Spices' },
-    { name: 'Onion (chopped)', qty: 1, unit: 'pc', category: 'Produce' }
+    { name: 'Onion', qty: 1, unit: 'pc', category: 'Produce' }
   ],
   directions: [
-    'Brown beef and onion in a large pot.',
+    'Chop onion.',
+    'Sauté onion until translucent.',
+    'Add beef and brown in a large pot.',
     'Add tomato sauce, beans, and chili powder.',
     'Simmer for 30 minutes.',
     'Serve hot with toppings if desired.'
@@ -554,14 +542,15 @@ window.__RECIPES = [
   nutrition: { protein: 40, carbs: 55, fat: 22, calories: 670 },
   baseServings: 6,
   ingredients: [
-    { name: 'Ground beef', qty: 1, unit: 'lb', category: 'Meat' },
+    { name: 'Ground beef (lean)', qty: 1, unit: 'lb', category: 'Meat' },
     { name: 'Lasagna noodles', qty: 12, unit: 'pc', category: 'Grains' },
     { name: 'Ricotta cheese', qty: 1, unit: 'cup', category: 'Dairy' },
-    { name: 'Mozzarella (shredded)', qty: 2, unit: 'cup', category: 'Dairy' },
+    { name: 'Mozzarella', qty: 2, unit: 'cup', category: 'Dairy' },
     { name: 'Marinara sauce', qty: 3, unit: 'cup', category: 'Pantry' }
   ],
   directions: [
     'Cook noodles and brown beef.',
+    'Mix beef with marinara sauce.',
     'Layer noodles, beef sauce, ricotta, and mozzarella in a baking dish.',
     'Repeat layers and finish with cheese.',
     'Bake at 375°F for 35 minutes.'
@@ -577,11 +566,12 @@ window.__RECIPES = [
   ingredients: [
     { name: 'Bell peppers', qty: 4, unit: 'pc', category: 'Produce' },
     { name: 'Ground beef', qty: 1, unit: 'lb', category: 'Meat' },
-    { name: 'Rice (cooked)', qty: 2, unit: 'cup', category: 'Grains' },
+    { name: 'Rice', qty: 2, unit: 'cup', category: 'Grains' },
     { name: 'Tomato sauce', qty: 1, unit: 'cup', category: 'Pantry' },
-    { name: 'Cheddar cheese (shredded)', qty: 0.5, unit: 'cup', category: 'Dairy' }
+    { name: 'Cheddar cheese', qty: 0.5, unit: 'cup', category: 'Dairy' }
   ],
   directions: [
+    'Cook rice and brown beef.',
     'Cut tops off peppers and remove seeds.',
     'Mix cooked rice, browned beef, and tomato sauce.',
     'Stuff mixture into peppers and top with cheese.',
@@ -598,9 +588,9 @@ window.__RECIPES = [
   ingredients: [
     { name: 'Ground beef', qty: 0.75, unit: 'lb', category: 'Meat' },
     { name: 'Diced tomatoes', qty: 2, unit: 'cup', category: 'Pantry' },
-    { name: 'Carrot (chopped)', qty: 1, unit: 'pc', category: 'Produce' },
-    { name: 'Zucchini (diced)', qty: 1, unit: 'pc', category: 'Produce' },
-    { name: 'Small pasta', qty: 1, unit: 'cup', category: 'Grains' }
+    { name: 'Carrots', qty: 1, unit: 'pc', category: 'Produce' },
+    { name: 'Zucchini', qty: 1, unit: 'pc', category: 'Produce' },
+    { name: 'Pasta', qty: 1, unit: 'cup', category: 'Grains' }
   ],
   directions: [
     'Brown beef, then add vegetables and tomatoes.',
@@ -619,13 +609,14 @@ window.__RECIPES = [
   ingredients: [
     { name: 'Ground beef', qty: 1, unit: 'lb', category: 'Meat' },
     { name: 'Taco seasoning', qty: 2, unit: 'tbsp', category: 'Spices' },
-    { name: 'Black beans (cooked)', qty: 1, unit: 'cup', category: 'Legumes' },
-    { name: 'Corn (cooked)', qty: 1, unit: 'cup', category: 'Vegetables' },
-    { name: 'Cheddar cheese (shredded)', qty: 1, unit: 'cup', category: 'Dairy' }
+    { name: 'Black beans', qty: 1, unit: 'cup', category: 'Legumes' },
+    { name: 'Corn', qty: 1, unit: 'cup', category: 'Vegetables' },
+    { name: 'Cheddar cheese', qty: 1, unit: 'cup', category: 'Dairy' }
   ],
   directions: [
     'Brown beef and drain fat.',
     'Stir in taco seasoning, beans, and corn.',
+    'Simmer for 5 minutes.',
     'Top with cheese and let melt.',
     'Serve in tortillas or over rice.'
   ]
@@ -639,12 +630,13 @@ window.__RECIPES = [
   baseServings: 4,
   ingredients: [
     { name: 'Ground beef', qty: 0.75, unit: 'lb', category: 'Meat' },
-    { name: 'Potatoes (diced)', qty: 3, unit: 'pc', category: 'Produce' },
-    { name: 'Carrots (sliced)', qty: 2, unit: 'pc', category: 'Produce' },
-    { name: 'Onion (chopped)', qty: 1, unit: 'pc', category: 'Produce' },
+    { name: 'Potato', qty: 3, unit: 'pc', category: 'Produce' },
+    { name: 'Carrots', qty: 2, unit: 'pc', category: 'Produce' },
+    { name: 'Onion', qty: 1, unit: 'pc', category: 'Produce' },
     { name: 'Beef broth', qty: 4, unit: 'cup', category: 'Pantry' }
   ],
   directions: [
+    'Chop potatoes, carrots, and onion.',
     'Brown beef and onion in a pot.',
     'Add broth, potatoes, and carrots.',
     'Simmer until vegetables are tender.',
@@ -659,15 +651,17 @@ window.__RECIPES = [
   nutrition: { protein: 35, carbs: 52, fat: 20, calories: 610 },
   baseServings: 4,
   ingredients: [
-    { name: 'Ground beef', qty: 1, unit: 'lb', category: 'Meat' },
+    { name: 'Ground beef (lean', qty: 1, unit: 'lb', category: 'Meat' },
     { name: 'Elbow macaroni', qty: 3, unit: 'cup', category: 'Grains' },
     { name: 'Tomato sauce', qty: 2, unit: 'cup', category: 'Pantry' },
-    { name: 'Cheddar cheese (shredded)', qty: 1.5, unit: 'cup', category: 'Dairy' }
+    { name: 'Cheddar cheese', qty: 1.5, unit: 'cup', category: 'Dairy' }
   ],
   directions: [
+    'Preheat oven to 375°F.',
     'Cook macaroni, drain.',
     'Brown beef and mix with tomato sauce.',
     'Combine with macaroni and half the cheese.',
+    'Place in a baking dish and top with remaining cheese.',
     'Bake at 375°F with remaining cheese until bubbly.'
   ]
 },
@@ -679,13 +673,14 @@ window.__RECIPES = [
   nutrition: { protein: 36, carbs: 28, fat: 18, calories: 490 },
   baseServings: 2,
   ingredients: [
-    { name: 'Flank steak (sliced)', qty: 0.75, unit: 'lb', category: 'Meat' },
-    { name: 'Bell peppers (sliced)', qty: 2, unit: 'pc', category: 'Produce' },
-    { name: 'Onion (sliced)', qty: 1, unit: 'pc', category: 'Produce' },
+    { name: 'Flank steak', qty: 0.75, unit: 'lb', category: 'Meat' },
+    { name: 'Bell peppers', qty: 2, unit: 'pc', category: 'Produce' },
+    { name: 'Onion', qty: 1, unit: 'pc', category: 'Produce' },
     { name: 'Tortillas', qty: 4, unit: 'pc', category: 'Bakery' },
     { name: 'Fajita seasoning', qty: 2, unit: 'tbsp', category: 'Spices' }
   ],
   directions: [
+    'Slice steak, peppers, and onion.',
     'Sear steak strips, then remove.',
     'Cook peppers and onions with seasoning.',
     'Return steak to pan and heat through.',
@@ -700,7 +695,7 @@ window.__RECIPES = [
   nutrition: { protein: 40, carbs: 58, fat: 22, calories: 690 },
   baseServings: 2,
   ingredients: [
-    { name: 'Steak (sirloin, sliced)', qty: 0.75, unit: 'lb', category: 'Meat' },
+    { name: 'Steak (sirloin)', qty: 0.75, unit: 'lb', category: 'Meat' },
     { name: 'Fettuccine pasta', qty: 8, unit: 'oz', category: 'Grains' },
     { name: 'Alfredo sauce', qty: 1.5, unit: 'cup', category: 'Pantry' },
     { name: 'Parmesan cheese', qty: 2, unit: 'tbsp', category: 'Dairy' }
@@ -720,13 +715,15 @@ window.__RECIPES = [
   nutrition: { protein: 38, carbs: 34, fat: 16, calories: 530 },
   baseServings: 2,
   ingredients: [
-    { name: 'Steak (flank, sliced)', qty: 0.75, unit: 'lb', category: 'Meat' },
-    { name: 'Broccoli florets', qty: 2, unit: 'cup', category: 'Produce' },
-    { name: 'Carrots (julienned)', qty: 1, unit: 'cup', category: 'Produce' },
+    { name: 'Steak (flank)', qty: 0.75, unit: 'lb', category: 'Meat' },
+    { name: 'Broccoli', qty: 2, unit: 'cup', category: 'Produce' },
+    { name: 'Carrots', qty: 1, unit: 'cup', category: 'Produce' },
     { name: 'Soy sauce', qty: 3, unit: 'tbsp', category: 'Pantry' },
-    { name: 'Rice (cooked)', qty: 2, unit: 'cup', category: 'Grains' }
+    { name: 'Rice', qty: 2, unit: 'cup', category: 'Grains' }
   ],
   directions: [
+    'Cook rice according to package instructions.',
+    'Slice steak and julienne carrots.',
     'Stir-fry steak strips and set aside.',
     'Cook vegetables until crisp-tender.',
     'Add steak back with soy sauce.',
@@ -742,13 +739,16 @@ window.__RECIPES = [
   baseServings: 2,
   ingredients: [
     { name: 'Ribeye steak', qty: 0.75, unit: 'lb', category: 'Meat' },
-    { name: 'Potatoes (peeled)', qty: 4, unit: 'pc', category: 'Produce' },
+    { name: 'Potato', qty: 4, unit: 'pc', category: 'Produce' },
     { name: 'Butter', qty: 2, unit: 'tbsp', category: 'Dairy' },
     { name: 'Milk', qty: 0.25, unit: 'cup', category: 'Dairy' },
-    { name: 'Garlic (minced)', qty: 2, unit: 'clove', category: 'Spices' }
+    { name: 'Garlic', qty: 2, unit: 'clove', category: 'Spices' }
   ],
   directions: [
-    'Boil potatoes until soft; mash with butter, milk, and garlic.',
+    'Peel and chop potatoes.',
+    'Boil potatoes until soft.',
+    'Mince garlic.',
+    'Mash with butter, milk, and garlic.',
     'Season and sear steak to desired doneness.',
     'Serve steak with mashed potatoes.'
   ]
@@ -762,13 +762,15 @@ window.__RECIPES = [
   baseServings: 4,
   ingredients: [
     { name: 'Ground beef', qty: 1, unit: 'lb', category: 'Meat' },
-    { name: 'Pasta (penne)', qty: 12, unit: 'oz', category: 'Grains' },
-    { name: 'Bell peppers (sliced)', qty: 2, unit: 'pc', category: 'Produce' },
-    { name: 'Onion (sliced)', qty: 1, unit: 'pc', category: 'Produce' },
-    { name: 'Provolone cheese (shredded)', qty: 1, unit: 'cup', category: 'Dairy' }
+    { name: 'Pasta', qty: 12, unit: 'oz', category: 'Grains' },
+    { name: 'Bell peppers', qty: 2, unit: 'pc', category: 'Produce' },
+    { name: 'Onion', qty: 1, unit: 'pc', category: 'Produce' },
+    { name: 'Provolone cheese', qty: 1, unit: 'cup', category: 'Dairy' }
   ],
   directions: [
     'Cook pasta, drain.',
+    'Chop peppers and onion.',
+    'Sauté onion and peppers until soft.',
     'Brown beef with peppers and onion.',
     'Stir pasta with beef mixture and cheese.',
     'Bake briefly until cheese melts.'
@@ -783,13 +785,14 @@ window.__RECIPES = [
   nutrition: { protein: 6, carbs: 14, fat: 9, calories: 190 },
   baseServings: 2,
   ingredients: [
-    { name: 'Broccoli florets', qty: 3, unit: 'cup', category: 'Produce' },
+    { name: 'Broccoli', qty: 3, unit: 'cup', category: 'Produce' },
     { name: 'Olive oil', qty: 1, unit: 'tbsp', category: 'Pantry' },
-    { name: 'Garlic (minced)', qty: 2, unit: 'clove', category: 'Spices' },
+    { name: 'Garlic', qty: 2, unit: 'clove', category: 'Spices' },
     { name: 'Salt & pepper', qty: 1, unit: 'tsp', category: 'Spices' }
   ],
   directions: [
     'Preheat oven to 425°F.',
+    'Mince garlic.',
     'Toss broccoli with oil, garlic, salt, and pepper.',
     'Spread on a sheet pan and roast 15 minutes until crispy edges appear.'
   ]
@@ -802,13 +805,16 @@ window.__RECIPES = [
   nutrition: { protein: 7, carbs: 20, fat: 7, calories: 200 },
   baseServings: 2,
   ingredients: [
-    { name: 'Broccoli florets (blanched)', qty: 2, unit: 'cup', category: 'Produce' },
-    { name: 'Greek yogurt (plain)', qty: 0.25, unit: 'cup', category: 'Dairy' },
+    { name: 'Broccoli', qty: 2, unit: 'cup', category: 'Produce' },
+    { name: 'Greek yogurt', qty: 0.25, unit: 'cup', category: 'Dairy' },
     { name: 'Dried cranberries', qty: 2, unit: 'tbsp', category: 'Fruit' },
     { name: 'Sunflower seeds', qty: 1, unit: 'tbsp', category: 'Nuts' },
     { name: 'Apple cider vinegar', qty: 1, unit: 'tsp', category: 'Pantry' }
   ],
   directions: [
+    'Blanch broccoli in boiling water 1–2 minutes,',
+    'then drain and place in ice bath to stop cooking.',
+    'Drain well.',
     'Whisk yogurt with vinegar and season lightly.',
     'Toss broccoli with cranberries and sunflower seeds.',
     'Fold in dressing and chill before serving.'
@@ -822,15 +828,16 @@ window.__RECIPES = [
   nutrition: { protein: 8, carbs: 16, fat: 8, calories: 200 },
   baseServings: 2,
   ingredients: [
-    { name: 'Broccoli florets', qty: 3, unit: 'cup', category: 'Produce' },
+    { name: 'Broccoli', qty: 3, unit: 'cup', category: 'Produce' },
     { name: 'Soy sauce (low sodium)', qty: 2, unit: 'tbsp', category: 'Pantry' },
     { name: 'Sesame oil', qty: 1, unit: 'tsp', category: 'Pantry' },
     { name: 'Sesame seeds', qty: 1, unit: 'tsp', category: 'Spices' },
-    { name: 'Garlic (minced)', qty: 1, unit: 'clove', category: 'Spices' }
+    { name: 'Garlic', qty: 1, unit: 'clove', category: 'Spices' }
   ],
   directions: [
     'Heat sesame oil in a skillet.',
-    'Add broccoli and garlic; stir fry until bright green.',
+    'Mince garlic and sauté until fragrant.',
+    'Add broccoli; stir fry until bright green.',
     'Stir in soy sauce and sesame seeds.',
     'Cook 1–2 minutes more and serve.'
   ]
@@ -843,13 +850,14 @@ window.__RECIPES = [
   nutrition: { protein: 3, carbs: 15, fat: 10, calories: 190 },
   baseServings: 2,
   ingredients: [
-    { name: 'Cucumber (sliced)', qty: 1, unit: 'pc', category: 'Produce' },
-    { name: 'Tomatoes (cherry, halved)', qty: 1, unit: 'cup', category: 'Produce' },
-    { name: 'Red onion (thinly sliced)', qty: 0.25, unit: 'pc', category: 'Produce' },
+    { name: 'Cucumber', qty: 1, unit: 'pc', category: 'Produce' },
+    { name: 'Cherry tomato', qty: 1, unit: 'cup', category: 'Produce' },
+    { name: 'Red onion', qty: 0.25, unit: 'pc', category: 'Produce' },
     { name: 'Olive oil', qty: 1, unit: 'tbsp', category: 'Pantry' },
     { name: 'Red wine vinegar', qty: 1, unit: 'tbsp', category: 'Pantry' }
   ],
   directions: [
+    'Slice cucumber and onion; halve tomatoes.',
     'Combine cucumber, tomato, and onion in a bowl.',
     'Whisk olive oil and vinegar, toss with vegetables.',
     'Season with salt and pepper, chill before serving.'
@@ -863,7 +871,7 @@ window.__RECIPES = [
   nutrition: { protein: 6, carbs: 16, fat: 9, calories: 190 },
   baseServings: 2,
   ingredients: [
-    { name: 'Cauliflower florets', qty: 3, unit: 'cup', category: 'Produce' },
+    { name: 'Cauliflower', qty: 3, unit: 'cup', category: 'Produce' },
     { name: 'Olive oil', qty: 1, unit: 'tbsp', category: 'Pantry' },
     { name: 'Paprika', qty: 1, unit: 'tsp', category: 'Spices' },
     { name: 'Salt', qty: 0.25, unit: 'tsp', category: 'Spices' }
@@ -882,15 +890,18 @@ window.__RECIPES = [
   nutrition: { protein: 5, carbs: 14, fat: 11, calories: 200 },
   baseServings: 2,
   ingredients: [
-    { name: 'Green beans (trimmed)', qty: 2, unit: 'cup', category: 'Produce' },
+    { name: 'Green beans', qty: 2, unit: 'cup', category: 'Produce' },
     { name: 'Olive oil', qty: 1, unit: 'tbsp', category: 'Pantry' },
     { name: 'Almonds (sliced)', qty: 2, unit: 'tbsp', category: 'Nuts' },
-    { name: 'Garlic (minced)', qty: 1, unit: 'clove', category: 'Spices' }
+    { name: 'Garlic', qty: 1, unit: 'clove', category: 'Spices' }
   ],
   directions: [
+    'Remove ends from green beans.',
     'Blanch green beans 2 minutes, then drain.',
+    'Mince garlic.',
     'Sauté garlic in oil, add beans.',
-    'Toss with almonds, cook 1–2 minutes more.'
+    'Toss with almonds, cook 1–2 minutes more.',
+    'Salt and pepper to taste.'
   ]
 },
 {
@@ -901,12 +912,13 @@ window.__RECIPES = [
   nutrition: { protein: 4, carbs: 10, fat: 11, calories: 190 },
   baseServings: 2,
   ingredients: [
-    { name: 'Zucchini (sliced lengthwise)', qty: 2, unit: 'pc', category: 'Produce' },
+    { name: 'Zucchini', qty: 2, unit: 'pc', category: 'Produce' },
     { name: 'Olive oil', qty: 1, unit: 'tbsp', category: 'Pantry' },
     { name: 'Lemon juice', qty: 1, unit: 'tsp', category: 'Produce' },
     { name: 'Salt & pepper', qty: 0.5, unit: 'tsp', category: 'Spices' }
   ],
   directions: [
+    'Slice zucchini lengthwise into thin ribbons.',
     'Brush zucchini with oil and season.',
     'Grill 2–3 minutes per side until tender.',
     'Drizzle lemon juice before serving.'
@@ -920,12 +932,13 @@ window.__RECIPES = [
   nutrition: { protein: 3, carbs: 18, fat: 9, calories: 190 },
   baseServings: 2,
   ingredients: [
-    { name: 'Carrots (shredded)', qty: 2, unit: 'cup', category: 'Produce' },
+    { name: 'Carrots', qty: 2, unit: 'cup', category: 'Produce' },
     { name: 'Olive oil', qty: 1, unit: 'tbsp', category: 'Pantry' },
     { name: 'Rice vinegar', qty: 1, unit: 'tbsp', category: 'Pantry' },
-    { name: 'Ginger (grated)', qty: 1, unit: 'tsp', category: 'Spices' }
+    { name: 'Ginger', qty: 1, unit: 'tsp', category: 'Spices' }
   ],
   directions: [
+    'Shred carrots and grate ginger.',
     'Combine oil, vinegar, and ginger.',
     'Toss with shredded carrots.',
     'Chill before serving.'
@@ -939,13 +952,14 @@ window.__RECIPES = [
   nutrition: { protein: 6, carbs: 18, fat: 9, calories: 200 },
   baseServings: 2,
   ingredients: [
-    { name: 'Brussels sprouts (halved)', qty: 3, unit: 'cup', category: 'Produce' },
+    { name: 'Brussels sprouts', qty: 3, unit: 'cup', category: 'Produce' },
     { name: 'Olive oil', qty: 1, unit: 'tbsp', category: 'Pantry' },
     { name: 'Balsamic vinegar', qty: 1, unit: 'tbsp', category: 'Pantry' },
     { name: 'Salt & pepper', qty: 0.5, unit: 'tsp', category: 'Spices' }
   ],
   directions: [
     'Preheat oven to 400°F.',
+    'Wash and halve Brussels sprouts.',
     'Toss sprouts with oil, seasonings.',
     'Roast 20 minutes, drizzle balsamic before serving.'
   ]
@@ -960,7 +974,7 @@ window.__RECIPES = [
   ingredients: [
     { name: 'Fresh spinach', qty: 4, unit: 'cup', category: 'Produce' },
     { name: 'Olive oil', qty: 1, unit: 'tbsp', category: 'Pantry' },
-    { name: 'Garlic (sliced)', qty: 2, unit: 'clove', category: 'Spices' }
+    { name: 'Garlic', qty: 2, unit: 'clove', category: 'Spices' }
   ],
   directions: [
     'Heat olive oil in a skillet.',
