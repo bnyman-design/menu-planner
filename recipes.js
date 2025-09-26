@@ -457,7 +457,7 @@ window.__RECIPES = [
     { name: 'Brown rice', qty: 1, unit: 'cup', category: 'Grains' },
     { name: 'Black beans', qty: 0.5, unit: 'cup', category: 'Legumes' },
     { name: 'Salsa', qty: 0.25, unit: 'cup', category: 'Pantry' },
-    { name: 'Corn', qty: 0.25, unit: 'cup', category: 'Vegetables' },
+    { name: 'Corn', qty: 0.25, unit: 'cup', category: 'Produce' },
     { name: 'Avocado', qty: 0.25, unit: 'pc', category: 'Produce' }
   ],
   directions: [
@@ -610,7 +610,7 @@ window.__RECIPES = [
     { name: 'Ground beef', qty: 1, unit: 'lb', category: 'Meat' },
     { name: 'Taco seasoning', qty: 2, unit: 'tbsp', category: 'Spices' },
     { name: 'Black beans', qty: 1, unit: 'cup', category: 'Legumes' },
-    { name: 'Corn', qty: 1, unit: 'cup', category: 'Vegetables' },
+    { name: 'Corn', qty: 1, unit: 'cup', category: 'Produce' },
     { name: 'Cheddar cheese', qty: 1, unit: 'cup', category: 'Dairy' }
   ],
   directions: [
@@ -807,7 +807,7 @@ window.__RECIPES = [
   ingredients: [
     { name: 'Broccoli', qty: 2, unit: 'cup', category: 'Produce' },
     { name: 'Greek yogurt', qty: 0.25, unit: 'cup', category: 'Dairy' },
-    { name: 'Dried cranberries', qty: 2, unit: 'tbsp', category: 'Fruit' },
+    { name: 'Dried cranberries', qty: 2, unit: 'tbsp', category: 'Produce' },
     { name: 'Sunflower seeds', qty: 1, unit: 'tbsp', category: 'Nuts' },
     { name: 'Apple cider vinegar', qty: 1, unit: 'tsp', category: 'Pantry' }
   ],
