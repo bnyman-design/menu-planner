@@ -117,3 +117,53 @@ body {
   background: #fff; color: #0f172a; font: inherit;
 }
 .site-nav .btn:hover { background: #f3f4f6; }
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.planner-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.menu-nav {
+  position: relative;
+}
+
+#menuBtn {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: .4rem .6rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+#menuPanel {
+  display: none;
+  position: absolute;
+  top: 2.8rem; /* just below the button */
+  left: 0;     /* aligns panel with button, which is right above W */
+  min-width: 180px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 10px 28px rgba(0,0,0,.08);
+}
+
+#menuPanel a {
+  display: block;
+  padding: .7rem .9rem;
+  text-decoration: none;
+  color: #0f172a;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+#menuPanel a:last-child {
+  border-bottom: none;
+}

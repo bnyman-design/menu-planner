@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-505L581HLV"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-505L581HLV"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-505L581HLV');
+  </script>
 
-  gtag('config', 'G-505L581HLV');
-</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Weekly Meal Planner</title>
@@ -17,25 +17,75 @@
   <link rel="stylesheet" href="meal-planner.css" />
   <script src="recipes.js"></script>
   <script src="meal-planner.js" defer></script>
+
+  <!-- Minimal layout helpers (safe defaults; your main CSS still applies) -->
+  <style>
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+    .page-header {
+      display: flex; align-items: center; gap: 12px; margin: 16px 0 8px;
+    }
+    .planner-title { margin: 0; font-size: 2rem; font-weight: 700; }
+    .menu-nav { position: relative; }
+    #menuBtn {
+      background:#fff; border:1px solid #e5e7eb; border-radius:10px;
+      padding:.4rem .6rem; cursor:pointer; display:flex; align-items:center;
+    }
+    #menuPanel {
+      display:none; position:absolute; top:2.8rem; left:0; min-width:180px;
+      background:#fff; border:1px solid #e5e7eb; border-radius:12px;
+      box-shadow:0 10px 28px rgba(0,0,0,.08); overflow:hidden; z-index:50;
+    }
+    #menuPanel a {
+      display:block; padding:.7rem .9rem; text-decoration:none; color:#0f172a;
+      border-bottom:1px solid #f1f5f9;
+    }
+    #menuPanel a:last-child { border-bottom:none; }
+  </style>
 </head>
 <body>
-  <nav class="site-nav">
-  <a class="btn" href="grocery.html">🛒 Grocery List</a>
-  <a class="btn" href="contact.html">Contact</a>
+  <!-- Success banner -->
+  <div id="successBanner"
+       role="alert"
+       aria-live="polite"
+       style="display:none; background:#d1fae5; color:#065f46; border:1px solid #10b981;
+              padding:.75rem 1rem; margin:1rem auto; max-width:800px; border-radius:8px;
+              font-size:1rem; position:relative;">
+    ✅ Thank you! Your message has been sent.
+    <button id="dismissBanner"
+            aria-label="Dismiss message"
+            style="position:absolute; top:.35rem; right:.5rem;
+                   background:transparent; border:none; font-size:1.1rem; color:#065f46; cursor:pointer;">
+      ×
+    </button>
+  </div>
 
-</nav>
   <main class="container">
-    <header class="topbar">
-      <h1>Weekly Meal Planner</h1>
+    <!-- Title + hamburger menu (single instance) -->
+    <header class="page-header">
+      <h1 class="planner-title">Weekly Meal Planner</h1>
 
+      <nav class="menu-nav">
+        <button id="menuBtn" aria-label="Open menu" aria-haspopup="true" aria-expanded="false">
+          <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 6h18M3 12h18M3 18h18"
+                  stroke="#0f172a" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div id="menuPanel">
+          <a href="grocery.html">Grocery List</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Week controls -->
+    <header class="topbar">
       <div class="week-controls">
         <button id="prevWeek" aria-label="Previous week">◀</button>
-
         <label class="weekpicker">
           <span>Week of</span>
           <input type="date" id="weekOf" />
         </label>
-
         <button id="nextWeek" aria-label="Next week">▶</button>
 
         <div class="spacer"></div>
@@ -61,10 +111,58 @@
           </tr>
         </thead>
         <tbody id="plannerBody">
-          <!-- JS injects: for each day => main row + nutrition row -->
+          <!-- JS injects rows -->
         </tbody>
       </table>
     </section>
   </main>
+
+  <!-- Banner + hamburger behavior -->
+  <script>
+    (function(){
+      // Success banner
+      const banner = document.getElementById('successBanner');
+      const dismiss = document.getElementById('dismissBanner');
+      if (location.hash === '#contact=sent' && banner) {
+        banner.style.display = 'block';
+        history.replaceState(null, '', location.pathname + location.search);
+      }
+      if (dismiss) dismiss.addEventListener('click', () => banner.style.display = 'none');
+
+      // Hamburger menu
+      const btn = document.getElementById('menuBtn');
+      const panel = document.getElementById('menuPanel');
+
+      function openMenu(){
+        panel.style.display = 'block';
+        btn.setAttribute('aria-expanded','true');
+        document.addEventListener('click', onDocClick);
+        document.addEventListener('keydown', onKeyDown);
+      }
+      function closeMenu(){
+        panel.style.display = 'none';
+        btn.setAttribute('aria-expanded','false');
+        document.removeEventListener('click', onDocClick);
+        document.removeEventListener('keydown', onKeyDown);
+      }
+      function toggleMenu(){
+        const open = panel.style.display === 'block';
+        (open ? closeMenu : openMenu)();
+      }
+      function onDocClick(e){
+        if (!panel.contains(e.target) && e.target !== btn && !btn.contains(e.target)){
+          closeMenu();
+        }
+      }
+      function onKeyDown(e){
+        if (e.key === 'Escape') closeMenu();
+      }
+      if (btn && panel) btn.addEventListener('click', toggleMenu);
+      // Close after clicking a link
+      panel.addEventListener('click', e => {
+        if (e.target.tagName === 'A') closeMenu();
+      });
+    })();
+  </script>
 </body>
 </html>
